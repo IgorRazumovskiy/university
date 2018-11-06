@@ -1,4 +1,4 @@
-package ua.com.foxmindEd.domainlayer;
+package ua.com.foxmindEd.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

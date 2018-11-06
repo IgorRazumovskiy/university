@@ -1,4 +1,4 @@
-package ua.com.foxmindEd.domainlayer;
+package ua.com.foxmindEd.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ public class Chair {
 	private String name;
 	private List<Teacher> teachers = new ArrayList<>();
 	private List<Course> courses = new ArrayList<>();
+
+	public Chair() {
+
+	}
 
 	public Chair(Integer id, String name, List<Teacher> teachers, List<Course> courses) {
 		this.setId(id);
@@ -60,8 +64,25 @@ public class Chair {
 		courses.add(course);
 	}
 
-	public void removeStudent(Course course) {
+	public void removeCourse(Course course) {
 		courses.remove(course);
+	}
+
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		Chair chair = (Chair) o;
+		if (!(getId().equals(chair.getId()))) {
+			return false;
+		}
+		return true;
+	}
+
+	public int hashCode() {
+		int hash = 3;
+		hash = 31 * hash + ((getId() != null) ? getId().hashCode() : 0);
+		return hash;
 	}
 
 }

@@ -1,9 +1,13 @@
-package ua.com.foxmindEd.domainlayer;
+package ua.com.foxmindEd.domain;
 
 public class Classroom {
 	private Integer id;
 	private String name;
 	private Integer capacity;
+
+	public Classroom() {
+
+	}
 
 	public Classroom(Integer id, String name, Integer capacity) {
 		this.setId(id);
@@ -33,6 +37,23 @@ public class Classroom {
 
 	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
+	}
+
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		Classroom classroom = (Classroom) o;
+		if (!(getId().equals(classroom.getId()))) {
+			return false;
+		}
+		return true;
+	}
+
+	public int hashCode() {
+		int hash = 3;
+		hash = 31 * hash + ((getId() != null) ? getId().hashCode() : 0);
+		return hash;
 	}
 
 }

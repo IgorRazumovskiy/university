@@ -1,4 +1,4 @@
-package ua.com.foxmindEd.domainlayer;
+package ua.com.foxmindEd.domain;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import ua.com.foxmindEd.domain.ClassItem;
+import ua.com.foxmindEd.domain.Classroom;
+import ua.com.foxmindEd.domain.Course;
+import ua.com.foxmindEd.domain.Group;
+import ua.com.foxmindEd.domain.Student;
+import ua.com.foxmindEd.domain.Teacher;
+import ua.com.foxmindEd.domain.University;
 
 public class UniversityTest {
 
@@ -58,7 +66,7 @@ public class UniversityTest {
 		group2.addStudent(student4);
 		group2.addStudent(student5);
 		group3.addStudent(student6);
-		ClassItem lesson = new ClassItem(course1, teacher1, classroom1, group1, dateTimelesson);
+		ClassItem lesson = new ClassItem(1, course1, teacher1, classroom1, group1, dateTimelesson);
 
 		assertTrue(university.isLessonInPeriod(dateTimeStart, dateTimeEnd, lesson));
 	}
@@ -80,7 +88,7 @@ public class UniversityTest {
 		group2.addStudent(student4);
 		group2.addStudent(student5);
 		group3.addStudent(student6);
-		ClassItem lesson = new ClassItem(course1, teacher1, classroom1, group1, dateTimelesson);
+		ClassItem lesson = new ClassItem(1, course1, teacher1, classroom1, group1, dateTimelesson);
 
 		assertFalse(university.isLessonInPeriod(dateTimeStart, dateTimeEnd, lesson));
 	}
@@ -105,10 +113,10 @@ public class UniversityTest {
 		group2.addStudent(student4);
 		group2.addStudent(student5);
 		group3.addStudent(student6);
-		ClassItem lesson1 = new ClassItem(course1, teacher1, classroom1, group1, dateTimelesson1);
-		ClassItem lesson2 = new ClassItem(course2, teacher1, classroom2, group3, dateTimelesson2);
-		ClassItem lesson3 = new ClassItem(course1, teacher2, classroom2, group2, dateTimelesson3);
-		ClassItem lesson4 = new ClassItem(course3, teacher3, classroom3, group3, dateTimelesson4);
+		ClassItem lesson1 = new ClassItem(1, course1, teacher1, classroom1, group1, dateTimelesson1);
+		ClassItem lesson2 = new ClassItem(2, course2, teacher1, classroom2, group3, dateTimelesson2);
+		ClassItem lesson3 = new ClassItem(3, course1, teacher2, classroom2, group2, dateTimelesson3);
+		ClassItem lesson4 = new ClassItem(4, course3, teacher3, classroom3, group3, dateTimelesson4);
 		university.addTimetable(lesson1);
 		university.addTimetable(lesson2);
 		university.addTimetable(lesson3);
@@ -149,10 +157,10 @@ public class UniversityTest {
 		group2.addStudent(student4);
 		group2.addStudent(student5);
 		group3.addStudent(student6);
-		ClassItem lesson1 = new ClassItem(course1, teacher1, classroom1, group1, dateTimelesson1);
-		ClassItem lesson2 = new ClassItem(course2, teacher1, classroom2, group3, dateTimelesson2);
-		ClassItem lesson3 = new ClassItem(course1, teacher2, classroom2, group2, dateTimelesson3);
-		ClassItem lesson4 = new ClassItem(course3, teacher3, classroom3, group1, dateTimelesson4);
+		ClassItem lesson1 = new ClassItem(1, course1, teacher1, classroom1, group1, dateTimelesson1);
+		ClassItem lesson2 = new ClassItem(2, course2, teacher1, classroom2, group3, dateTimelesson2);
+		ClassItem lesson3 = new ClassItem(3, course1, teacher2, classroom2, group2, dateTimelesson3);
+		ClassItem lesson4 = new ClassItem(4, course3, teacher3, classroom3, group1, dateTimelesson4);
 		university.addTimetable(lesson1);
 		university.addTimetable(lesson2);
 		university.addTimetable(lesson3);
