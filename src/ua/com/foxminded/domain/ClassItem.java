@@ -1,4 +1,4 @@
-package ua.com.foxmindEd.domain;
+package ua.com.foxminded.domain;
 
 import java.time.LocalDateTime;
 
@@ -14,9 +14,7 @@ public class ClassItem {
 
 	}
 
-	public ClassItem(Integer id, Course course, Teacher teacher, Classroom classroom, Group group,
-			LocalDateTime dateTime) {
-		this.setId(id);
+	public ClassItem(Course course, Teacher teacher, Classroom classroom, Group group, LocalDateTime dateTime) {
 		this.setCourse(course);
 		this.setTeacher(teacher);
 		this.setClassroom(classroom);
@@ -72,21 +70,32 @@ public class ClassItem {
 		this.dateTime = dateTime;
 	}
 
-	public boolean equals(Object o) {
-		if (o == null) {
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		}
-		ClassItem classItem = (ClassItem) o;
-		if (!(getId().equals(classItem.getId()))) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
+		ClassItem other = (ClassItem) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		return true;
 	}
 
 	public int hashCode() {
-		int hash = 3;
-		hash = 31 * hash + ((getId() != null) ? getId().hashCode() : 0);
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	public String toString() {
+		return "ClassItem [id=" + id + ", course=" + course + ", teacher=" + teacher + ", classroom=" + classroom
+				+ ", group=" + group + ", dateTime=" + dateTime + "]";
 	}
 
 }

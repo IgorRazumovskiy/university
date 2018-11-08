@@ -1,4 +1,4 @@
-package ua.com.foxmindEd.domain;
+package ua.com.foxminded.domain;
 
 public class Classroom {
 	private Integer id;
@@ -9,8 +9,7 @@ public class Classroom {
 
 	}
 
-	public Classroom(Integer id, String name, Integer capacity) {
-		this.setId(id);
+	public Classroom(String name, Integer capacity) {
 		this.setName(name);
 		this.setCapacity(capacity);
 	}
@@ -39,21 +38,31 @@ public class Classroom {
 		this.capacity = capacity;
 	}
 
-	public boolean equals(Object o) {
-		if (o == null) {
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		}
-		Classroom classroom = (Classroom) o;
-		if (!(getId().equals(classroom.getId()))) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
+		Classroom other = (Classroom) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		return true;
 	}
 
 	public int hashCode() {
-		int hash = 3;
-		hash = 31 * hash + ((getId() != null) ? getId().hashCode() : 0);
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	public String toString() {
+		return "Classroom [id=" + id + ", name=" + name + ", capacity=" + capacity + "]";
 	}
 
 }

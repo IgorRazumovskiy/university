@@ -1,4 +1,4 @@
-package ua.com.foxmindEd.domain;
+package ua.com.foxminded.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,7 @@ public class Faculty {
 
 	}
 
-	public Faculty(Integer id, String name, List<Group> groups, List<Classroom> classrooms, List<Chair> chairs) {
-		this.setId(id);
+	public Faculty(String name, List<Group> groups, List<Classroom> classrooms, List<Chair> chairs) {
 		this.setName(name);
 		this.setGroups(groups);
 		this.setClassrooms(classrooms);
@@ -86,21 +85,32 @@ public class Faculty {
 		chairs.remove(chair);
 	}
 
-	public boolean equals(Object o) {
-		if (o == null) {
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		}
-		Faculty faculty = (Faculty) o;
-		if (!(getId().equals(faculty.getId()))) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
+		Faculty other = (Faculty) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		return true;
 	}
-	
+
 	public int hashCode() {
-		int hash = 3;
-		hash = 31 * hash + ((getId() != null) ? getId().hashCode() : 0);
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	public String toString() {
+		return "Faculty [id=" + id + ", name=" + name + ", groups=" + groups + ", classrooms=" + classrooms
+				+ ", chairs=" + chairs + "]";
 	}
 
 }
