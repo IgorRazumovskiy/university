@@ -93,11 +93,6 @@ public class ClassItem {
                 return false;
         } else if (!group.equals(other.group))
             return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
         return true;
     }
 
@@ -107,7 +102,6 @@ public class ClassItem {
         result = prime * result + ((course == null) ? 0 : course.hashCode());
         result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
         result = prime * result + ((group == null) ? 0 : group.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
