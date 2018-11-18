@@ -1,0 +1,3 @@
+CREATE DATABASE university;
+CREATE USER mentor WITH PASSWORD '123';
+GRANT ALL ON DATABASE university TO mentor;
