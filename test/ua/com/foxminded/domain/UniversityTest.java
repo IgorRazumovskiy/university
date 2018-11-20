@@ -191,7 +191,9 @@ public class UniversityTest {
     public void retrieveEmptySheduleForStudent() {
         LocalDateTime dateTimeStart = LocalDateTime.of(2018, 11, 1, 9, 0, 0);
         LocalDateTime dateTimeEnd = LocalDateTime.of(2018, 11, 30, 9, 0, 0);
-
+        System.out.println(dateTimeStart);
+        System.out.println(dateTimeEnd);
+        
         List<ClassItem> actual = university.displayScheduleStudent(dateTimeStart, dateTimeEnd, student3);
 
         assertTrue(actual.isEmpty());
