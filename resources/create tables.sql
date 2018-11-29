@@ -36,7 +36,7 @@ CREATE TABLE student
 (
     id serial PRIMARY KEY,
     name character varying(50) NOT NULL,
-    group_id int NOT NULL,
+    group_id int,
     CONSTRAINT student_group_fk FOREIGN KEY (group_id)
         REFERENCES groups (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
