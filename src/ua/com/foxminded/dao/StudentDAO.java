@@ -14,42 +14,32 @@ public class StudentDAO {
 
     public Student create(Student student) throws DAOException {
         String sql = "INSERT INTO student (name) VALUES (?);";
-        String name = student.getName();
-        Student studentCreated = null;
         try (Connection connection = DAOPostgreSQLConnection.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
-            statement.setString(1, name);
+            statement.setString(1, student.getName());
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
-            studentCreated = new Student(rs.getString("name"));
-            studentCreated.setId(rs.getInt("id"));
+            student.setId(rs.getInt("id"));
         } catch (SQLException e) {
             throw new DAOException("Cannot create student", e);
         }
 
-        return studentCreated;
+        return student;
     }
 
-    public Student update(Student student, Integer group_id) throws DAOException {
-        String sql = "UPDATE student SET name = ?, group_id = ? WHERE id = ?;";
-        String name = student.getName();
-        Integer id = student.getId();
-        Student studentUpdated = null;
+    public Student update(Student student) throws DAOException {
+        String sql = "UPDATE student SET name = ? WHERE id = ?;";
         try (Connection connection = DAOPostgreSQLConnection.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setString(1, name);
-            statement.setInt(2, group_id);
-            statement.setInt(3, id);
-            if (statement.executeUpdate() != 0) {
-                studentUpdated = new Student(name);
-                studentUpdated.setId(id);
-            }
+            statement.setString(1, student.getName());
+            statement.setInt(2, student.getId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Cannot update student", e);
         }
 
-        return studentUpdated;
+        return student;
     }
 
     public Student findOne(Integer id) throws DAOException {
