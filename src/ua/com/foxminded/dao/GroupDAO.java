@@ -11,10 +11,11 @@ import java.util.List;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAO {
-    
+    DBConnection dbConnect = new DBConnection();
+
     public Group create(Group group) throws DAOException {
         String sql = "INSERT INTO groups (name) VALUES (?);";
-        try (Connection connection = DAOPostgreSQLConnection.getConnection();
+        try (Connection connection = dbConnect.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
             statement.setString(1, group.getName());
             statement.execute();
@@ -30,7 +31,7 @@ public class GroupDAO {
 
     public Group update(Group group) throws DAOException {
         String sql = "UPDATE groups SET name = ? WHERE id = ?;";
-        try (Connection connection = DAOPostgreSQLConnection.getConnection();
+        try (Connection connection = dbConnect.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, group.getName());
             statement.setInt(2, group.getId());
@@ -45,7 +46,7 @@ public class GroupDAO {
     public Group findOne(Integer id) throws DAOException {
         String sql = "SELECT * FROM groups WHERE id = ?;";
         Group group = null;
-        try (Connection connection = DAOPostgreSQLConnection.getConnection();
+        try (Connection connection = dbConnect.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -53,6 +54,7 @@ public class GroupDAO {
                 group = new Group();
                 group.setId(rs.getInt("id"));
                 group.setName(rs.getString("name"));
+                group.setStudents(new StudentDAO().findStudentsInGroup(rs.getInt("id")));
             }
         } catch (SQLException e) {
             throw new DAOException("Cannot find group", e);
@@ -64,7 +66,7 @@ public class GroupDAO {
     public List<Group> findAll() throws DAOException {
         String sql = "SELECT * FROM groups;";
         List<Group> groupList = new ArrayList<>();
-        try (Connection connection = DAOPostgreSQLConnection.getConnection();
+        try (Connection connection = dbConnect.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -83,7 +85,7 @@ public class GroupDAO {
     public Group delete(Integer id) throws DAOException {
         String sql = "DELETE FROM groups WHERE id = ?;";
         Group group = null;
-        try (Connection connection = DAOPostgreSQLConnection.getConnection();
+        try (Connection connection = dbConnect.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
