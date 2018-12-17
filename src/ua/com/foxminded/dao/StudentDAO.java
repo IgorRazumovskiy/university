@@ -11,11 +11,11 @@ import java.util.List;
 import ua.com.foxminded.domain.Student;
 
 public class StudentDAO {
-    DBConnection dbConnect = new DBConnection();
+    public ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Student create(Student student) throws DAOException {
         String sql = "INSERT INTO student (name) VALUES (?);";
-        try (Connection connection = dbConnect.getConnection();
+        try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
             statement.setString(1, student.getName());
             statement.execute();
@@ -31,7 +31,7 @@ public class StudentDAO {
 
     public Student update(Student student) throws DAOException {
         String sql = "UPDATE student SET name = ? WHERE id = ?;";
-        try (Connection connection = dbConnect.getConnection();
+        try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, student.getName());
             statement.setInt(2, student.getId());
@@ -46,7 +46,7 @@ public class StudentDAO {
     public Student findOne(Integer id) throws DAOException {
         String sql = "SELECT * FROM student WHERE id = ?;";
         Student student = null;
-        try (Connection connection = dbConnect.getConnection();
+        try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -65,7 +65,7 @@ public class StudentDAO {
     public List<Student> findAll() throws DAOException {
         String sql = "SELECT * FROM student;";
         List<Student> studentList = new ArrayList<>();
-        try (Connection connection = dbConnect.getConnection();
+        try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -84,7 +84,7 @@ public class StudentDAO {
     public Student delete(Integer id) throws DAOException {
         String sql = "DELETE FROM student WHERE id = ?;";
         Student student = null;
-        try (Connection connection = dbConnect.getConnection();
+        try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
@@ -98,10 +98,10 @@ public class StudentDAO {
         return student;
     }
 
-    public List<Student> findStudentsInGroup(Integer group_id) throws DAOException {
+    public List<Student> findStudentsByGroup(Integer group_id) throws DAOException {
         String sql = "SELECT * FROM student WHERE group_id = ?;";
         List<Student> studentList = new ArrayList<>();
-        try (Connection connection = dbConnect.getConnection();
+        try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, group_id);
             ResultSet rs = statement.executeQuery();
