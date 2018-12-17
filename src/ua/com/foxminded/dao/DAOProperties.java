@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class DAOProperties {
-    private static String url;
-    private static String user;
-    private static String password;
+    private static DAOProperties instance;
+    private String url;
+    private String user;
+    private String password;
 
-    public void readProperties() throws DAOException {
-        try (FileInputStream fis = new FileInputStream("resources/dao.properties");) {
+    private DAOProperties() throws DAOException {
+        try (FileInputStream fis = new FileInputStream("resources/dao.properties")) {
             Properties prop = new Properties();
             prop.load(fis);
             url = prop.getProperty("url");
@@ -19,6 +20,12 @@ public class DAOProperties {
         } catch (IOException e) {
             throw new DAOException("Cannot find file properties", e);
         }
+    }
+
+    public synchronized static DAOProperties getInstance() throws DAOException {
+        if (instance == null)
+            instance = new DAOProperties();
+        return instance;
     }
 
     public String getUrl() {

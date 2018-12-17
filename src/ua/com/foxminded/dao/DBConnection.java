@@ -5,15 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    public static DAOProperties props;
+    public static DAOProperties properties;
 
     public Connection getConnection() throws DAOException {
-        if (props == null) {
-            props = new DAOProperties();
-            props.readProperties();
+        if (properties == null) {
+            properties = DAOProperties.getInstance();
         }
         try {
-            return DriverManager.getConnection(props.getUrl(), props.getUser(), props.getPassword());
+            return DriverManager.getConnection(properties.getUrl(), properties.getUser(), properties.getPassword());
         } catch (SQLException e) {
             throw new DAOException("Cannot get connection", e);
         }
