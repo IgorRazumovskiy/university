@@ -30,15 +30,15 @@ public class DAOProperties {
         return instance;
     }
 
-    public String getUrl() {
+    String getUrl() {
         return url;
     }
 
-    public String getUser() {
+    String getUser() {
         return user;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
