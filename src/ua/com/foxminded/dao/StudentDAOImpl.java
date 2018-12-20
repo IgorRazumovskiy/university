@@ -11,7 +11,7 @@ import java.util.List;
 import ua.com.foxminded.domain.Student;
 
 public class StudentDAOImpl implements StudentDAO {
-    public ConnectionFactory connectionFactory = new ConnectionFactory();
+    private ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Student create(Student student) throws DAOException {
         String sql = "INSERT INTO student (name) VALUES (?);";
@@ -25,7 +25,6 @@ public class StudentDAOImpl implements StudentDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot create student", e);
         }
-
         return student;
     }
 
@@ -39,7 +38,6 @@ public class StudentDAOImpl implements StudentDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot update student", e);
         }
-
         return student;
     }
 
@@ -58,7 +56,6 @@ public class StudentDAOImpl implements StudentDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot find student", e);
         }
-
         return student;
     }
 
@@ -77,7 +74,6 @@ public class StudentDAOImpl implements StudentDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot find all students", e);
         }
-
         return studentList;
     }
 
@@ -94,7 +90,6 @@ public class StudentDAOImpl implements StudentDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot delete student", e);
         }
-
         return student;
     }
 
@@ -114,7 +109,6 @@ public class StudentDAOImpl implements StudentDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot find students in group", e);
         }
-
         return studentList;
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAOImpl implements GroupDAO {
-    public ConnectionFactory connectionFactory = new ConnectionFactory();
+    private ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Group create(Group group) throws DAOException {
         String sql = "INSERT INTO groups (name) VALUES (?);";
@@ -25,7 +25,6 @@ public class GroupDAOImpl implements GroupDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot create group", e);
         }
-
         return group;
     }
 
@@ -39,7 +38,6 @@ public class GroupDAOImpl implements GroupDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot update group", e);
         }
-
         return group;
     }
 
@@ -59,7 +57,6 @@ public class GroupDAOImpl implements GroupDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot find group", e);
         }
-
         return group;
     }
 
@@ -78,7 +75,6 @@ public class GroupDAOImpl implements GroupDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot find all groups", e);
         }
-
         return groupList;
     }
 
@@ -95,7 +91,6 @@ public class GroupDAOImpl implements GroupDAO {
         } catch (SQLException e) {
             throw new DAOException("Cannot delete group", e);
         }
-
         return group;
     }
 }

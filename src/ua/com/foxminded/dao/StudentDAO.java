@@ -4,18 +4,18 @@ import java.util.List;
 
 import ua.com.foxminded.domain.Student;
 
-public interface StudentDAO {
+public interface StudentDAO extends GenericDAO<Student, Integer> {
 
-    public Student create(Student student) throws DAOException;
+    public Student create(Student student);
     
-    public Student update(Student student) throws DAOException;
+    public Student update(Student student);
 
-    public Student findOne(Integer id) throws DAOException;
+    public Student findOne(Integer id);
 
-    public List<Student> findAll() throws DAOException;
+    public List<Student> findAll();
 
-    public Student delete(Integer id) throws DAOException;
+    public Student delete(Integer id);
     
-    public List<Student> findStudentsByGroup(Integer id) throws DAOException;
+    public List<Student> findStudentsByGroup(Integer id);
     
 }

@@ -4,16 +4,16 @@ import java.util.List;
 
 import ua.com.foxminded.domain.Group;
 
-public interface GroupDAO {
+public interface GroupDAO extends GenericDAO<Group, Integer> {
 
-    public Group create(Group group) throws DAOException;
+    public Group create(Group group);
     
-    public Group update(Group group) throws DAOException;
+    public Group update(Group group);
 
-    public Group findOne(Integer id) throws DAOException;
+    public Group findOne(Integer id);
 
-    public List<Group> findAll() throws DAOException;
+    public List<Group> findAll();
 
-    public Group delete(Integer id) throws DAOException;
+    public Group delete(Integer id);
 
 }
