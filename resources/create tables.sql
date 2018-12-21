@@ -27,7 +27,7 @@ CREATE TABLE groups
 (
     id serial PRIMARY KEY,
     name character varying(30) NOT NULL,
-    faculty_id int NOT NULL,
+    faculty_id int,
     CONSTRAINT group_faculty_fk FOREIGN KEY (faculty_id)
         REFERENCES faculty (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
