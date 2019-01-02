@@ -11,6 +11,7 @@ import java.util.List;
 import ua.com.foxminded.dao.ConnectionFactory;
 import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.dao.GroupDAO;
+import ua.com.foxminded.domain.Classroom;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAOImpl implements GroupDAO {
@@ -96,4 +97,24 @@ public class GroupDAOImpl implements GroupDAO {
         }
         return group;
     }
+
+    public List<Group> findGroupsByFaculty(Integer faculty_id) throws DAOException {
+        String sql = "SELECT * FROM groups WHERE faculty_id = ?;";
+        List<Group> groupList = new ArrayList<>();
+        try (Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setInt(1, faculty_id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Group group = new Group();
+                group.setId(rs.getInt("id"));
+                group.setName(rs.getString("name"));
+                groupList.add(group);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Cannot find groups in faculty", e);
+        }
+        return groupList;
+    }
+
 }
