@@ -14,12 +14,12 @@ import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.domain.Course;
 
 public class CourseDAOImpl implements CourseDAO {
-    private ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Course create(Course course) {
-        String sql = "INSERT INTO course (name) VALUES (?);";
+        String sql = "INSERT INTO course (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, course.getName());
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
@@ -32,9 +32,9 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     public Course update(Course course) throws DAOException {
-        String sql = "UPDATE course SET name = ? WHERE id = ?;";
+        String sql = "UPDATE course SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, course.getName());
             statement.setInt(2, course.getId());
             statement.executeUpdate();
@@ -45,10 +45,10 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     public Course findOne(Integer id) throws DAOException {
-        String sql = "SELECT * FROM course WHERE id = ?;";
+        String sql = "SELECT * FROM course WHERE id = ?";
         Course course = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -63,10 +63,10 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     public List<Course> findAll() throws DAOException {
-        String sql = "SELECT * FROM course;";
+        String sql = "SELECT * FROM course";
         List<Course> courseList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Course course = new Course();
@@ -81,10 +81,10 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     public Course delete(Integer id) throws DAOException {
-        String sql = "DELETE FROM course WHERE id = ?;";
+        String sql = "DELETE FROM course WHERE id = ?";
         Course course = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
                 course = new Course();
@@ -96,12 +96,12 @@ public class CourseDAOImpl implements CourseDAO {
         return course;
     }
     
-    public List<Course> findCoursesByChair(Integer chair_id) throws DAOException { 
-        String sql = "SELECT * FROM course WHERE chair_id = ?;";
+    public List<Course> findCoursesByChair(Integer chairId) throws DAOException { 
+        String sql = "SELECT * FROM course WHERE chair_id = ?";
         List<Course> courseList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setInt(1, chair_id);
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, chairId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Course course = new Course();
@@ -115,12 +115,12 @@ public class CourseDAOImpl implements CourseDAO {
         return courseList;
     }
 
-    public List<Course> findCoursesByTeacher(Integer teacher_id) throws DAOException { 
-        String sql = "SELECT id, name FROM course c INNER JOIN course_teacher ct ON c.id = ct.course_id WHERE teacher_id = ?;";
+    public List<Course> findCoursesByTeacher(Integer teacherId) throws DAOException { 
+        String sql = "SELECT id, name FROM course c INNER JOIN course_teacher ct ON c.id = ct.course_id WHERE teacher_id = ?";
         List<Course> courseList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setInt(1, teacher_id);
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, teacherId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Course course = new Course();

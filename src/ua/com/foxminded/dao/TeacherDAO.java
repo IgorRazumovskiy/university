@@ -6,6 +6,6 @@ import ua.com.foxminded.domain.Teacher;
 
 public interface TeacherDAO extends GenericDAO<Teacher, Integer> {
 
-    public List<Teacher> findTeachersByChair(Integer id);
+    List<Teacher> findTeachersByChair(Integer id);
 
 }

@@ -14,12 +14,12 @@ import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.domain.Student;
 
 public class StudentDAOImpl implements StudentDAO {
-    private ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Student create(Student student) throws DAOException {
-        String sql = "INSERT INTO student (name) VALUES (?);";
+        String sql = "INSERT INTO student (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, student.getName());
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
@@ -32,9 +32,9 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     public Student update(Student student) throws DAOException {
-        String sql = "UPDATE student SET name = ? WHERE id = ?;";
+        String sql = "UPDATE student SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, student.getName());
             statement.setInt(2, student.getId());
             statement.executeUpdate();
@@ -45,10 +45,10 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     public Student findOne(Integer id) throws DAOException {
-        String sql = "SELECT * FROM student WHERE id = ?;";
+        String sql = "SELECT * FROM student WHERE id = ?";
         Student student = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -63,10 +63,10 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     public List<Student> findAll() throws DAOException {
-        String sql = "SELECT * FROM student;";
+        String sql = "SELECT * FROM student";
         List<Student> studentList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Student student = new Student();
@@ -81,10 +81,10 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     public Student delete(Integer id) throws DAOException {
-        String sql = "DELETE FROM student WHERE id = ?;";
+        String sql = "DELETE FROM student WHERE id = ?";
         Student student = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
                 student = new Student();
@@ -96,12 +96,12 @@ public class StudentDAOImpl implements StudentDAO {
         return student;
     }
 
-    public List<Student> findStudentsByGroup(Integer group_id) throws DAOException {
-        String sql = "SELECT * FROM student WHERE group_id = ?;";
+    public List<Student> findStudentsByGroup(Integer groupId) throws DAOException {
+        String sql = "SELECT * FROM student WHERE group_id = ?";
         List<Student> studentList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setInt(1, group_id);
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, groupId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Student student = new Student();

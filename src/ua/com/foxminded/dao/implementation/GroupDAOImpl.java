@@ -11,16 +11,15 @@ import java.util.List;
 import ua.com.foxminded.dao.ConnectionFactory;
 import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.dao.GroupDAO;
-import ua.com.foxminded.domain.Classroom;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAOImpl implements GroupDAO {
-    private ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Group create(Group group) throws DAOException {
-        String sql = "INSERT INTO groups (name) VALUES (?);";
+        String sql = "INSERT INTO groups (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, group.getName());
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
@@ -33,9 +32,9 @@ public class GroupDAOImpl implements GroupDAO {
     }
 
     public Group update(Group group) throws DAOException {
-        String sql = "UPDATE groups SET name = ? WHERE id = ?;";
+        String sql = "UPDATE groups SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, group.getName());
             statement.setInt(2, group.getId());
             statement.executeUpdate();
@@ -46,10 +45,10 @@ public class GroupDAOImpl implements GroupDAO {
     }
 
     public Group findOne(Integer id) throws DAOException {
-        String sql = "SELECT * FROM groups WHERE id = ?;";
+        String sql = "SELECT * FROM groups WHERE id = ?";
         Group group = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -65,10 +64,10 @@ public class GroupDAOImpl implements GroupDAO {
     }
 
     public List<Group> findAll() throws DAOException {
-        String sql = "SELECT * FROM groups;";
+        String sql = "SELECT * FROM groups";
         List<Group> groupList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Group group = new Group();
@@ -83,10 +82,10 @@ public class GroupDAOImpl implements GroupDAO {
     }
 
     public Group delete(Integer id) throws DAOException {
-        String sql = "DELETE FROM groups WHERE id = ?;";
+        String sql = "DELETE FROM groups WHERE id = ?";
         Group group = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
                 group = new Group();
@@ -98,12 +97,12 @@ public class GroupDAOImpl implements GroupDAO {
         return group;
     }
 
-    public List<Group> findGroupsByFaculty(Integer faculty_id) throws DAOException {
-        String sql = "SELECT * FROM groups WHERE faculty_id = ?;";
+    public List<Group> findGroupsByFaculty(Integer facultyId) throws DAOException {
+        String sql = "SELECT * FROM groups WHERE faculty_id = ?";
         List<Group> groupList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setInt(1, faculty_id);
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, facultyId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Group group = new Group();

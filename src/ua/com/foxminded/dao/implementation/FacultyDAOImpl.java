@@ -14,12 +14,12 @@ import ua.com.foxminded.dao.FacultyDAO;
 import ua.com.foxminded.domain.Faculty;
 
 public class FacultyDAOImpl implements FacultyDAO {
-    private ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Faculty create(Faculty faculty) throws DAOException {
-        String sql = "INSERT INTO faculty (name) VALUES (?);";
+        String sql = "INSERT INTO faculty (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, faculty.getName());
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
@@ -32,9 +32,9 @@ public class FacultyDAOImpl implements FacultyDAO {
     }
 
     public Faculty update(Faculty faculty) throws DAOException {
-        String sql = "UPDATE faculty SET name = ? WHERE id = ?;";
+        String sql = "UPDATE faculty SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, faculty.getName());
             statement.setInt(2, faculty.getId());
             statement.executeUpdate();
@@ -45,10 +45,10 @@ public class FacultyDAOImpl implements FacultyDAO {
     }
 
     public Faculty findOne(Integer id) throws DAOException {
-        String sql = "SELECT * FROM faculty WHERE id = ?;";
+        String sql = "SELECT * FROM faculty WHERE id = ?";
         Faculty faculty = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -66,10 +66,10 @@ public class FacultyDAOImpl implements FacultyDAO {
     }
 
     public List<Faculty> findAll() throws DAOException {
-        String sql = "SELECT * FROM faculty;";
+        String sql = "SELECT * FROM faculty";
         List<Faculty> facultyList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Faculty faculty = new Faculty();
@@ -84,10 +84,10 @@ public class FacultyDAOImpl implements FacultyDAO {
     }
 
     public Faculty delete(Integer id) throws DAOException {
-        String sql = "DELETE FROM faculty WHERE id = ?;";
+        String sql = "DELETE FROM faculty WHERE id = ?";
         Faculty faculty = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
                 faculty = new Faculty();

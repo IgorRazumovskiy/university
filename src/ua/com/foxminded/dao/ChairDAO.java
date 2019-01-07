@@ -6,6 +6,6 @@ import ua.com.foxminded.domain.Chair;
 
 public interface ChairDAO extends GenericDAO<Chair, Integer> {
 
-    public List<Chair> findChairsByFaculty(Integer id);
+    List<Chair> findChairsByFaculty(Integer id);
 
 }

@@ -15,12 +15,12 @@ import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.domain.ClassItem;
 
 public class ClassItemDAOImpl implements ClassItemDAO {
-    private ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public ClassItem create(ClassItem classItem) throws DAOException {
-        String sql = "INSERT INTO lesson (teacher_id, group_id, classroom_id, course_id, datetime) VALUES (?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO lesson (teacher_id, group_id, classroom_id, course_id, datetime) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, classItem.getTeacher().getId());
             statement.setInt(2, classItem.getGroup().getId());
             statement.setInt(3, classItem.getClassroom().getId());
@@ -37,9 +37,9 @@ public class ClassItemDAOImpl implements ClassItemDAO {
     }
 
     public ClassItem update(ClassItem classItem) throws DAOException {
-        String sql = "UPDATE lesson SET teacher_id = ?, group_id = ?, classroom_id = ?, course_id = ?, datetime = ? WHERE id = ?;";
+        String sql = "UPDATE lesson SET teacher_id = ?, group_id = ?, classroom_id = ?, course_id = ?, datetime = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, classItem.getTeacher().getId());
             statement.setInt(2, classItem.getGroup().getId());
             statement.setInt(3, classItem.getClassroom().getId());
@@ -54,10 +54,10 @@ public class ClassItemDAOImpl implements ClassItemDAO {
     }
 
     public ClassItem findOne(Integer id) throws DAOException {
-        String sql = "SELECT * FROM lesson WHERE id = ?;";
+        String sql = "SELECT * FROM lesson WHERE id = ?";
         ClassItem classItem = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -76,10 +76,10 @@ public class ClassItemDAOImpl implements ClassItemDAO {
     }
 
     public List<ClassItem> findAll() throws DAOException {
-        String sql = "SELECT * FROM lesson;";
+        String sql = "SELECT * FROM lesson";
         List<ClassItem> classItemList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 ClassItem classItem = new ClassItem();
@@ -98,10 +98,10 @@ public class ClassItemDAOImpl implements ClassItemDAO {
     }
 
     public ClassItem delete(Integer id) throws DAOException {
-        String sql = "DELETE FROM lesson WHERE id = ?;";
+        String sql = "DELETE FROM lesson WHERE id = ?";
         ClassItem classItem = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
                 classItem = new ClassItem();

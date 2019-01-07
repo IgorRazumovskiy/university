@@ -6,6 +6,6 @@ import ua.com.foxminded.domain.Group;
 
 public interface GroupDAO extends GenericDAO<Group, Integer> {
     
-    public List<Group> findGroupsByFaculty(Integer id);
+    List<Group> findGroupsByFaculty(Integer id);
     
 }

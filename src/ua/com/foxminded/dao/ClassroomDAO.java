@@ -6,6 +6,6 @@ import ua.com.foxminded.domain.Classroom;
 
 public interface ClassroomDAO extends GenericDAO<Classroom, Integer> {
 
-    public List<Classroom> findClassroomsByFaculty(Integer id);
+    List<Classroom> findClassroomsByFaculty(Integer id);
 
 }

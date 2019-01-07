@@ -14,12 +14,12 @@ import ua.com.foxminded.dao.TeacherDAO;
 import ua.com.foxminded.domain.Teacher;
 
 public class TeacherDAOImpl implements TeacherDAO {
-    private ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     public Teacher create(Teacher teacher) throws DAOException {
-        String sql = "INSERT INTO teacher (name) VALUES (?);";
+        String sql = "INSERT INTO teacher (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, teacher.getName());
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
@@ -32,9 +32,9 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     public Teacher update(Teacher teacher) throws DAOException {
-        String sql = "UPDATE teacher SET name = ? WHERE id = ?;";
+        String sql = "UPDATE teacher SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, teacher.getName());
             statement.setInt(2, teacher.getId());
             statement.executeUpdate();
@@ -45,10 +45,10 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     public Teacher findOne(Integer id) throws DAOException {
-        String sql = "SELECT * FROM teacher WHERE id = ?;";
+        String sql = "SELECT * FROM teacher WHERE id = ?";
         Teacher teacher = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -64,10 +64,10 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     public List<Teacher> findAll() throws DAOException {
-        String sql = "SELECT * FROM teacher;";
+        String sql = "SELECT * FROM teacher";
         List<Teacher> teacherList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Teacher teacher = new Teacher();
@@ -82,10 +82,10 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     public Teacher delete(Integer id) throws DAOException {
-        String sql = "DELETE FROM teacher WHERE id = ?;";
+        String sql = "DELETE FROM teacher WHERE id = ?";
         Teacher teacher = null;
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             if (statement.executeUpdate() != 0) {
                 teacher = new Teacher();
@@ -97,12 +97,12 @@ public class TeacherDAOImpl implements TeacherDAO {
         return teacher;
     }
 
-    public List<Teacher> findTeachersByChair(Integer chair_id) throws DAOException {
-        String sql = "SELECT * FROM teacher WHERE chair_id = ?;";
+    public List<Teacher> findTeachersByChair(Integer chairId) throws DAOException {
+        String sql = "SELECT * FROM teacher WHERE chair_id = ?";
         List<Teacher> teacherList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setInt(1, chair_id);
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, chairId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Teacher teacher = new Teacher();
