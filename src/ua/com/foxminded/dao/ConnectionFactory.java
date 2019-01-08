@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory  {
-    public DAOProperties properties = DAOProperties.getInstance();
+    private DAOProperties properties = DAOProperties.getInstance();
 
     public Connection getConnection() throws DAOException {
         try {

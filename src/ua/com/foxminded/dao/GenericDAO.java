@@ -4,14 +4,14 @@ import java.util.List;
 
 public interface GenericDAO<E, K> {
 
-    public E create(E entity);
+    E create(E entity);
 
-    public E update(E entity);
+    E update(E entity);
 
-    public E findOne(K id);
+    E findOne(K id);
 
-    public List<E> findAll();
+    List<E> findAll();
 
-    public E delete(K id);
+    E delete(K id);
 
 }
