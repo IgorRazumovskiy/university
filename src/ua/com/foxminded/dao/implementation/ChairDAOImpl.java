@@ -10,13 +10,15 @@ import java.util.List;
 
 import ua.com.foxminded.dao.ChairDAO;
 import ua.com.foxminded.dao.ConnectionFactory;
+import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.DAOException;
+import ua.com.foxminded.dao.TeacherDAO;
 import ua.com.foxminded.domain.Chair;
 
 public class ChairDAOImpl implements ChairDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
-    private TeacherDAOImpl teacher = new TeacherDAOImpl();
-    private CourseDAOImpl course = new CourseDAOImpl();
+    private final TeacherDAO teacherDAO = new TeacherDAOImpl();
+    private final CourseDAO courseDAO = new CourseDAOImpl();
 
     public Chair create(Chair chair) throws DAOException {
         String sql = "INSERT INTO chair (name) VALUES (?)";
@@ -58,8 +60,8 @@ public class ChairDAOImpl implements ChairDAO {
                 chair.setId(rs.getInt("id"));
                 chair.setName(rs.getString("name"));
             }
-            chair.setTeachers(teacher.findTeachersByChair(id));
-            chair.setCourses(course.findCoursesByChair(id));
+            chair.setTeachers(teacherDAO.findTeachersByChair(id));
+            chair.setCourses(courseDAO.findCoursesByChair(id));
         } catch (SQLException e) {
             throw new DAOException("Cannot find chair", e);
         }
@@ -76,8 +78,8 @@ public class ChairDAOImpl implements ChairDAO {
                 Chair chair = new Chair();
                 chair.setId(rs.getInt("id"));
                 chair.setName(rs.getString("name"));
-                chair.setTeachers(teacher.findTeachersByChair(rs.getInt("id")));
-                chair.setCourses(course.findCoursesByChair(rs.getInt("id")));
+                chair.setTeachers(teacherDAO.findTeachersByChair(rs.getInt("id")));
+                chair.setCourses(courseDAO.findCoursesByChair(rs.getInt("id")));
                 chairList.add(chair);
             }
         } catch (SQLException e) {
