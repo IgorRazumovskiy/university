@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.com.foxminded.dao.ConnectionFactory;
+import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.dao.TeacherDAO;
 import ua.com.foxminded.domain.Teacher;
 
 public class TeacherDAOImpl implements TeacherDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final CourseDAO courseDAO = new CourseDAOImpl();
 
     public Teacher create(Teacher teacher) throws DAOException {
         String sql = "INSERT INTO teacher (name) VALUES (?)";
@@ -51,12 +53,12 @@ public class TeacherDAOImpl implements TeacherDAO {
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                teacher = new Teacher();
+            teacher = new Teacher();
+            while (rs.next()) {                
                 teacher.setId(rs.getInt("id"));
-                teacher.setName(rs.getString("name"));
-                teacher.setCourses(new CourseDAOImpl().findCoursesByTeacher(rs.getInt("id")));
+                teacher.setName(rs.getString("name"));              
             }
+            teacher.setCourses(courseDAO.findCoursesByTeacher(rs.getInt("id")));
         } catch (SQLException e) {
             throw new DAOException("Cannot find teacher", e);
         }
@@ -73,6 +75,7 @@ public class TeacherDAOImpl implements TeacherDAO {
                 Teacher teacher = new Teacher();
                 teacher.setId(rs.getInt("id"));
                 teacher.setName(rs.getString("name"));
+                teacher.setCourses(courseDAO.findCoursesByTeacher(rs.getInt("id")));
                 teacherList.add(teacher);
             }
         } catch (SQLException e) {

@@ -10,12 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.com.foxminded.dao.ClassItemDAO;
+import ua.com.foxminded.dao.ClassroomDAO;
 import ua.com.foxminded.dao.ConnectionFactory;
+import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.DAOException;
+import ua.com.foxminded.dao.GroupDAO;
+import ua.com.foxminded.dao.TeacherDAO;
 import ua.com.foxminded.domain.ClassItem;
 
 public class ClassItemDAOImpl implements ClassItemDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final TeacherDAO teacherDAO = new TeacherDAOImpl();
+    private final GroupDAO groupDAO = new GroupDAOImpl();
+    private final ClassroomDAO classroomDAO = new ClassroomDAOImpl();
+    private final CourseDAO courseDAO = new CourseDAOImpl();
 
     public ClassItem create(ClassItem classItem) throws DAOException {
         String sql = "INSERT INTO lesson (teacher_id, group_id, classroom_id, course_id, datetime) VALUES (?, ?, ?, ?, ?)";
@@ -63,10 +71,10 @@ public class ClassItemDAOImpl implements ClassItemDAO {
             while (rs.next()) {
                 classItem = new ClassItem();
                 classItem.setId(rs.getInt("id"));
-                classItem.setTeacher(new TeacherDAOImpl().findOne(rs.getInt("teacher_id")));
-                classItem.setGroup(new GroupDAOImpl().findOne(rs.getInt("group_id")));
-                classItem.setClassroom(new ClassroomDAOImpl().findOne(rs.getInt("classroom_id")));
-                classItem.setCourse(new CourseDAOImpl().findOne(rs.getInt("course_id")));
+                classItem.setTeacher(teacherDAO.findOne(rs.getInt("teacher_id")));
+                classItem.setGroup(groupDAO.findOne(rs.getInt("group_id")));
+                classItem.setClassroom(classroomDAO.findOne(rs.getInt("classroom_id")));
+                classItem.setCourse(courseDAO.findOne(rs.getInt("course_id")));
                 classItem.setDateTime(rs.getObject("datetime", LocalDateTime.class));
             }
         } catch (SQLException e) {
@@ -84,10 +92,10 @@ public class ClassItemDAOImpl implements ClassItemDAO {
             while (rs.next()) {
                 ClassItem classItem = new ClassItem();
                 classItem.setId(rs.getInt("id"));
-                classItem.setTeacher(new TeacherDAOImpl().findOne(rs.getInt("teacher_id")));
-                classItem.setGroup(new GroupDAOImpl().findOne(rs.getInt("group_id")));
-                classItem.setClassroom(new ClassroomDAOImpl().findOne(rs.getInt("classroom_id")));
-                classItem.setCourse(new CourseDAOImpl().findOne(rs.getInt("course_id")));
+                classItem.setTeacher(teacherDAO.findOne(rs.getInt("teacher_id")));
+                classItem.setGroup(groupDAO.findOne(rs.getInt("group_id")));
+                classItem.setClassroom(classroomDAO.findOne(rs.getInt("classroom_id")));
+                classItem.setCourse(courseDAO.findOne(rs.getInt("course_id")));
                 classItem.setDateTime(rs.getObject("datetime", LocalDateTime.class));
                 classItemList.add(classItem);
             }

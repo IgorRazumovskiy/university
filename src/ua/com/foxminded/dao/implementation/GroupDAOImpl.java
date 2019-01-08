@@ -11,10 +11,12 @@ import java.util.List;
 import ua.com.foxminded.dao.ConnectionFactory;
 import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.dao.GroupDAO;
+import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAOImpl implements GroupDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final StudentDAO studentDAO = new StudentDAOImpl();
 
     public Group create(Group group) throws DAOException {
         String sql = "INSERT INTO groups (name) VALUES (?)";
@@ -51,12 +53,12 @@ public class GroupDAOImpl implements GroupDAO {
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
+            group = new Group();
             while (rs.next()) {
-                group = new Group();
                 group.setId(rs.getInt("id"));
                 group.setName(rs.getString("name"));
-                group.setStudents(new StudentDAOImpl().findStudentsByGroup(rs.getInt("id")));
             }
+            group.setStudents(studentDAO.findStudentsByGroup(id));
         } catch (SQLException e) {
             throw new DAOException("Cannot find group", e);
         }
@@ -73,6 +75,7 @@ public class GroupDAOImpl implements GroupDAO {
                 Group group = new Group();
                 group.setId(rs.getInt("id"));
                 group.setName(rs.getString("name"));
+                group.setStudents(studentDAO.findStudentsByGroup(rs.getInt("id")));
                 groupList.add(group);
             }
         } catch (SQLException e) {
