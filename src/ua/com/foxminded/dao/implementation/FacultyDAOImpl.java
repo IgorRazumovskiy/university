@@ -8,13 +8,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import ua.com.foxminded.dao.ChairDAO;
+import ua.com.foxminded.dao.ClassroomDAO;
 import ua.com.foxminded.dao.ConnectionFactory;
 import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.dao.FacultyDAO;
+import ua.com.foxminded.dao.GroupDAO;
 import ua.com.foxminded.domain.Faculty;
 
 public class FacultyDAOImpl implements FacultyDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final GroupDAO groupDAO = new GroupDAOImpl();
+    private final ClassroomDAO classroomDAO = new ClassroomDAOImpl();
+    private final ChairDAO chairDAO = new ChairDAOImpl();
 
     public Faculty create(Faculty faculty) throws DAOException {
         String sql = "INSERT INTO faculty (name) VALUES (?)";
@@ -51,14 +57,14 @@ public class FacultyDAOImpl implements FacultyDAO {
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
+            faculty = new Faculty();
             while (rs.next()) {
-                faculty = new Faculty();
                 faculty.setId(rs.getInt("id"));
                 faculty.setName(rs.getString("name"));
-                faculty.setGroups(new GroupDAOImpl().findGroupsByFaculty(rs.getInt("id")));
-                faculty.setClassrooms(new ClassroomDAOImpl().findClassroomsByFaculty(rs.getInt("id")));
-                faculty.setChairs(new ChairDAOImpl().findChairsByFaculty(rs.getInt("id")));
             }
+            faculty.setGroups(groupDAO.findGroupsByFaculty(id));
+            faculty.setClassrooms(classroomDAO.findClassroomsByFaculty(rs.getInt(id)));
+            faculty.setChairs(chairDAO.findChairsByFaculty(rs.getInt(id)));
         } catch (SQLException e) {
             throw new DAOException("Cannot find faculty", e);
         }
@@ -75,6 +81,9 @@ public class FacultyDAOImpl implements FacultyDAO {
                 Faculty faculty = new Faculty();
                 faculty.setId(rs.getInt("id"));
                 faculty.setName(rs.getString("name"));
+                faculty.setGroups(groupDAO.findGroupsByFaculty(rs.getInt("id")));
+                faculty.setClassrooms(classroomDAO.findClassroomsByFaculty(rs.getInt("id")));
+                faculty.setChairs(chairDAO.findChairsByFaculty(rs.getInt("id")));
                 facultyList.add(faculty);
             }
         } catch (SQLException e) {
