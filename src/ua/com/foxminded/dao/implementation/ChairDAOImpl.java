@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import ua.com.foxminded.dao.ChairDAO;
 import ua.com.foxminded.dao.ConnectionFactory;
@@ -19,8 +20,10 @@ public class ChairDAOImpl implements ChairDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
     private final TeacherDAO teacherDAO = new TeacherDAOImpl();
     private final CourseDAO courseDAO = new CourseDAOImpl();
+    private static final Logger log = Logger.getLogger(ChairDAOImpl.class.getName());
 
     public Chair create(Chair chair) throws DAOException {
+        log.info("Creating new Chair with id = " + chair.getId());
         String sql = "INSERT INTO chair (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -29,7 +32,9 @@ public class ChairDAOImpl implements ChairDAO {
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
             chair.setId(rs.getInt("id"));
+            log.info("Chair with id = " + rs.getInt("id") + " created!");
         } catch (SQLException e) {
+            log.error("Cannot create chair", e);
             throw new DAOException("Cannot create chair", e);
         }
         return chair;
