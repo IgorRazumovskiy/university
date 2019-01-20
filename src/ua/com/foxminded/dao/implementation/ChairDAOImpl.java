@@ -25,12 +25,14 @@ public class ChairDAOImpl implements ChairDAO {
     private static final Logger log = LogManager.getLogger(ChairDAOImpl.class.getName());
 
     public Chair create(Chair chair) throws DAOException {
-        log.trace("Creating new Chair with id = " + chair.getId());
+        log.trace("Start create Chair");
         String sql = "INSERT INTO chair (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, chair.getName());
+            log.trace("Execute insert statement");
             statement.execute();
+            log.trace("Get result set");
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
             chair.setId(rs.getInt("id"));
@@ -39,34 +41,36 @@ public class ChairDAOImpl implements ChairDAO {
             log.error("Cannot create chair", e);
             throw new DAOException("Cannot create chair", e);
         }
-        log.trace("Returning created Chair with id = " + chair.getId());
+        log.trace("Finish create Chair");
         return chair;
     }
 
     public Chair update(Chair chair) throws DAOException {
-        log.trace("Updating Chair with id = " + chair.getId());
+        log.trace("Start update Chair");
         String sql = "UPDATE chair SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, chair.getName());
             statement.setInt(2, chair.getId());
+            log.trace("Execute update statement");
             statement.executeUpdate();
             log.info("Chair " + chair + " updated!");
         } catch (SQLException e) {
             log.error("Cannot update chair", e);
             throw new DAOException("Cannot update chair", e);
         }
-        log.trace("Returning updated Chair with id = " + chair.getId());
+        log.trace("Finish update Chair");
         return chair;
     }
 
     public Chair findOne(Integer id) throws DAOException {
-        log.trace("Finding Chair with id = " + id);
+        log.trace("Start find Chair with id = " + id);
         String sql = "SELECT * FROM chair WHERE id = ?";
         Chair chair = null;
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
+            log.trace("Get result set");
             ResultSet rs = statement.executeQuery();
             chair = new Chair();
             while (rs.next()) {
@@ -80,16 +84,17 @@ public class ChairDAOImpl implements ChairDAO {
             log.error("Cannot find chair", e);
             throw new DAOException("Cannot find chair", e);
         }
-        log.trace("Returning Chair with id = " + id);
+        log.trace("Finish find Chair with id = " + id);
         return chair;
     }
 
     public List<Chair> findAll() throws DAOException {
-        log.trace("Finding all chairs");
+        log.trace("Start find all chairs");
         String sql = "SELECT * FROM chair";
         List<Chair> chairList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
+            log.trace("Get result set");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Chair chair = new Chair();
@@ -104,17 +109,18 @@ public class ChairDAOImpl implements ChairDAO {
             log.error("Cannot find all chairs", e);
             throw new DAOException("Cannot find all chairs", e);
         }
-        log.trace("Returning all chairs");
+        log.trace("Finish find all chairs");
         return chairList;
     }
 
     public Chair delete(Integer id) throws DAOException {
-        log.trace("Deleting Chair with id = " + id);
+        log.trace("Start delete Chair with id = " + id);
         String sql = "DELETE FROM chair WHERE id = ?";
         Chair chair = null;
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
+            log.trace("Execute delete statement");
             if (statement.executeUpdate() != 0) {
                 chair = new Chair();
                 chair.setId(id);
@@ -126,17 +132,18 @@ public class ChairDAOImpl implements ChairDAO {
             log.error("Cannot delete chair", e);
             throw new DAOException("Cannot delete chair", e);
         }
-        log.trace("Returning deleted Chair with id = " + id);
+        log.trace("Finish delete Chair with id = " + id);
         return chair;
     }
 
     public List<Chair> findChairsByFaculty(Integer facultyId) throws DAOException {
-        log.trace("Finding chairs with facultyId = " + facultyId);
+        log.trace("Start find chairs with facultyId = " + facultyId);
         String sql = "SELECT * FROM chair WHERE faculty_id = ?";
         List<Chair> chairList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, facultyId);
+            log.trace("Get result set");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Chair chair = new Chair();
@@ -149,7 +156,7 @@ public class ChairDAOImpl implements ChairDAO {
             log.error("Cannot find chair", e);
             throw new DAOException("Cannot find chairs in faculty", e);
         }
-        log.trace("Returning chairs with facultyId = " + facultyId);
+        log.trace("Finish find chairs with facultyId = " + facultyId);
         return chairList;
     }
 
