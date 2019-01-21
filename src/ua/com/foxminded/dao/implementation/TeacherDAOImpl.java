@@ -18,7 +18,7 @@ public class TeacherDAOImpl implements TeacherDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
     private final CourseDAO courseDAO = new CourseDAOImpl();
 
-    public Teacher create(Teacher teacher) throws DAOException {
+    public Teacher create(Teacher teacher) {
         String sql = "INSERT INTO teacher (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -33,7 +33,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         return teacher;
     }
 
-    public Teacher update(Teacher teacher) throws DAOException {
+    public Teacher update(Teacher teacher) {
         String sql = "UPDATE teacher SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -46,7 +46,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         return teacher;
     }
 
-    public Teacher findOne(Integer id) throws DAOException {
+    public Teacher findOne(Integer id) {
         String sql = "SELECT * FROM teacher WHERE id = ?";
         Teacher teacher = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -65,7 +65,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         return teacher;
     }
 
-    public List<Teacher> findAll() throws DAOException {
+    public List<Teacher> findAll() {
         String sql = "SELECT * FROM teacher";
         List<Teacher> teacherList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -84,7 +84,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         return teacherList;
     }
 
-    public Teacher delete(Integer id) throws DAOException {
+    public Teacher delete(Integer id) {
         String sql = "DELETE FROM teacher WHERE id = ?";
         Teacher teacher = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -100,7 +100,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         return teacher;
     }
 
-    public List<Teacher> findTeachersByChair(Integer chairId) throws DAOException {
+    public List<Teacher> findTeachersByChair(Integer chairId) {
         String sql = "SELECT * FROM teacher WHERE chair_id = ?";
         List<Teacher> teacherList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();

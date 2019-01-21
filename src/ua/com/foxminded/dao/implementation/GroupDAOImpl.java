@@ -18,7 +18,7 @@ public class GroupDAOImpl implements GroupDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
     private final StudentDAO studentDAO = new StudentDAOImpl();
 
-    public Group create(Group group) throws DAOException {
+    public Group create(Group group) {
         String sql = "INSERT INTO groups (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -33,7 +33,7 @@ public class GroupDAOImpl implements GroupDAO {
         return group;
     }
 
-    public Group update(Group group) throws DAOException {
+    public Group update(Group group) {
         String sql = "UPDATE groups SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -46,7 +46,7 @@ public class GroupDAOImpl implements GroupDAO {
         return group;
     }
 
-    public Group findOne(Integer id) throws DAOException {
+    public Group findOne(Integer id) {
         String sql = "SELECT * FROM groups WHERE id = ?";
         Group group = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -65,7 +65,7 @@ public class GroupDAOImpl implements GroupDAO {
         return group;
     }
 
-    public List<Group> findAll() throws DAOException {
+    public List<Group> findAll() {
         String sql = "SELECT * FROM groups";
         List<Group> groupList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -84,7 +84,7 @@ public class GroupDAOImpl implements GroupDAO {
         return groupList;
     }
 
-    public Group delete(Integer id) throws DAOException {
+    public Group delete(Integer id) {
         String sql = "DELETE FROM groups WHERE id = ?";
         Group group = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -100,7 +100,7 @@ public class GroupDAOImpl implements GroupDAO {
         return group;
     }
 
-    public List<Group> findGroupsByFaculty(Integer facultyId) throws DAOException {
+    public List<Group> findGroupsByFaculty(Integer facultyId) {
         String sql = "SELECT * FROM groups WHERE faculty_id = ?";
         List<Group> groupList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();

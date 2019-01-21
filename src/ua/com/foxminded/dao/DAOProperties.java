@@ -14,7 +14,7 @@ public class DAOProperties {
 
     }
 
-    public synchronized static DAOProperties getInstance() throws DAOException {
+    public synchronized static DAOProperties getInstance() {
         if (instance == null) {
             try (FileInputStream fis = new FileInputStream("resources/dao.properties")) {
                 Properties prop = new Properties();

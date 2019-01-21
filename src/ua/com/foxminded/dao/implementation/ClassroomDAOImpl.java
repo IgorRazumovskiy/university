@@ -16,7 +16,7 @@ import ua.com.foxminded.domain.Classroom;
 public class ClassroomDAOImpl implements ClassroomDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
     
-    public Classroom create(Classroom classroom) throws DAOException {
+    public Classroom create(Classroom classroom) {
         String sql = "INSERT INTO classroom (number, capacity) VALUES (?, ?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -32,7 +32,7 @@ public class ClassroomDAOImpl implements ClassroomDAO {
         return classroom;
     }
 
-    public Classroom update(Classroom classroom) throws DAOException {
+    public Classroom update(Classroom classroom) {
         String sql = "UPDATE classroom SET number = ?, capacity = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -46,7 +46,7 @@ public class ClassroomDAOImpl implements ClassroomDAO {
         return classroom;
     }
 
-    public Classroom findOne(Integer id) throws DAOException {
+    public Classroom findOne(Integer id) {
         String sql = "SELECT * FROM classroom WHERE id = ?";
         Classroom classroom = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -65,7 +65,7 @@ public class ClassroomDAOImpl implements ClassroomDAO {
         return classroom;
     }
 
-    public List<Classroom> findAll() throws DAOException {
+    public List<Classroom> findAll() {
         String sql = "SELECT * FROM classroom";
         List<Classroom> classroomList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -84,7 +84,7 @@ public class ClassroomDAOImpl implements ClassroomDAO {
         return classroomList;
     }
 
-    public Classroom delete(Integer id) throws DAOException {
+    public Classroom delete(Integer id) {
         String sql = "DELETE FROM classroom WHERE id = ?";
         Classroom classroom = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -100,7 +100,7 @@ public class ClassroomDAOImpl implements ClassroomDAO {
         return classroom;
     }
     
-    public List<Classroom> findClassroomsByFaculty(Integer facultyId) throws DAOException {
+    public List<Classroom> findClassroomsByFaculty(Integer facultyId) {
         String sql = "SELECT * FROM classroom WHERE faculty_id = ?";
         List<Classroom> classroomList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();

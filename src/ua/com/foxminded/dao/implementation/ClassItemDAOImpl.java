@@ -25,7 +25,7 @@ public class ClassItemDAOImpl implements ClassItemDAO {
     private final ClassroomDAO classroomDAO = new ClassroomDAOImpl();
     private final CourseDAO courseDAO = new CourseDAOImpl();
 
-    public ClassItem create(ClassItem classItem) throws DAOException {
+    public ClassItem create(ClassItem classItem) {
         String sql = "INSERT INTO lesson (teacher_id, group_id, classroom_id, course_id, datetime) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -44,7 +44,7 @@ public class ClassItemDAOImpl implements ClassItemDAO {
         return classItem;
     }
 
-    public ClassItem update(ClassItem classItem) throws DAOException {
+    public ClassItem update(ClassItem classItem) {
         String sql = "UPDATE lesson SET teacher_id = ?, group_id = ?, classroom_id = ?, course_id = ?, datetime = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -61,7 +61,7 @@ public class ClassItemDAOImpl implements ClassItemDAO {
         return classItem;
     }
 
-    public ClassItem findOne(Integer id) throws DAOException {
+    public ClassItem findOne(Integer id) {
         String sql = "SELECT * FROM lesson WHERE id = ?";
         ClassItem classItem = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -83,7 +83,7 @@ public class ClassItemDAOImpl implements ClassItemDAO {
         return classItem;
     }
 
-    public List<ClassItem> findAll() throws DAOException {
+    public List<ClassItem> findAll() {
         String sql = "SELECT * FROM lesson";
         List<ClassItem> classItemList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -105,7 +105,7 @@ public class ClassItemDAOImpl implements ClassItemDAO {
         return classItemList;
     }
 
-    public ClassItem delete(Integer id) throws DAOException {
+    public ClassItem delete(Integer id) {
         String sql = "DELETE FROM lesson WHERE id = ?";
         ClassItem classItem = null;
         try (Connection connection = connectionFactory.getConnection();
