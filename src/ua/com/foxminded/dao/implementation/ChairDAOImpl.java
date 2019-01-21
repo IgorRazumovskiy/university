@@ -24,7 +24,7 @@ public class ChairDAOImpl implements ChairDAO {
     private final CourseDAO courseDAO = new CourseDAOImpl();
     private static final Logger log = LogManager.getLogger(ChairDAOImpl.class.getName());
 
-    public Chair create(Chair chair) throws DAOException {
+    public Chair create(Chair chair) {
         log.trace("Start create Chair");
         String sql = "INSERT INTO chair (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
@@ -45,7 +45,7 @@ public class ChairDAOImpl implements ChairDAO {
         return chair;
     }
 
-    public Chair update(Chair chair) throws DAOException {
+    public Chair update(Chair chair) {
         log.trace("Start update Chair");
         String sql = "UPDATE chair SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
@@ -63,7 +63,7 @@ public class ChairDAOImpl implements ChairDAO {
         return chair;
     }
 
-    public Chair findOne(Integer id) throws DAOException {
+    public Chair findOne(Integer id) {
         log.trace("Start find Chair with id = " + id);
         String sql = "SELECT * FROM chair WHERE id = ?";
         Chair chair = null;
@@ -88,7 +88,7 @@ public class ChairDAOImpl implements ChairDAO {
         return chair;
     }
 
-    public List<Chair> findAll() throws DAOException {
+    public List<Chair> findAll() {
         log.trace("Start find all chairs");
         String sql = "SELECT * FROM chair";
         List<Chair> chairList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class ChairDAOImpl implements ChairDAO {
         return chairList;
     }
 
-    public Chair delete(Integer id) throws DAOException {
+    public Chair delete(Integer id) {
         log.trace("Start delete Chair with id = " + id);
         String sql = "DELETE FROM chair WHERE id = ?";
         Chair chair = null;
@@ -136,7 +136,7 @@ public class ChairDAOImpl implements ChairDAO {
         return chair;
     }
 
-    public List<Chair> findChairsByFaculty(Integer facultyId) throws DAOException {
+    public List<Chair> findChairsByFaculty(Integer facultyId) {
         log.trace("Start find chairs with facultyId = " + facultyId);
         String sql = "SELECT * FROM chair WHERE faculty_id = ?";
         List<Chair> chairList = new ArrayList<>();
