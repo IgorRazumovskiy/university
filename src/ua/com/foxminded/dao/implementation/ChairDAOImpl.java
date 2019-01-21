@@ -79,7 +79,7 @@ public class ChairDAOImpl implements ChairDAO {
             }
             chair.setTeachers(teacherDAO.findTeachersByChair(id));
             chair.setCourses(courseDAO.findCoursesByChair(id));
-            log.debug("Chair with id = " + id + " finded!");
+            log.debug("Chair with id = " + id + " found!");
         } catch (SQLException e) {
             log.error("Cannot find chair", e);
             throw new DAOException("Cannot find chair", e);
@@ -104,7 +104,7 @@ public class ChairDAOImpl implements ChairDAO {
                 chair.setCourses(courseDAO.findCoursesByChair(rs.getInt("id")));
                 chairList.add(chair);
             }
-            log.debug(chairList.size() + " chairs finded!");
+            log.debug(chairList.size() + " chairs found!");
         } catch (SQLException e) {
             log.error("Cannot find all chairs", e);
             throw new DAOException("Cannot find all chairs", e);
@@ -150,7 +150,7 @@ public class ChairDAOImpl implements ChairDAO {
                 chair.setId(rs.getInt("id"));
                 chair.setName(rs.getString("name"));
                 chairList.add(chair);
-                log.debug(chairList.size() + " chairs with facultyId = " + facultyId + " finded!");
+                log.debug(chairList.size() + " chairs with facultyId = " + facultyId + " found!");
             }
         } catch (SQLException e) {
             log.error("Cannot find chair", e);
