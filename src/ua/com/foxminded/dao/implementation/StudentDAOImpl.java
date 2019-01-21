@@ -16,7 +16,7 @@ import ua.com.foxminded.domain.Student;
 public class StudentDAOImpl implements StudentDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
-    public Student create(Student student) throws DAOException {
+    public Student create(Student student) {
         String sql = "INSERT INTO student (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -31,7 +31,7 @@ public class StudentDAOImpl implements StudentDAO {
         return student;
     }
 
-    public Student update(Student student) throws DAOException {
+    public Student update(Student student) {
         String sql = "UPDATE student SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -44,7 +44,7 @@ public class StudentDAOImpl implements StudentDAO {
         return student;
     }
 
-    public Student findOne(Integer id) throws DAOException {
+    public Student findOne(Integer id) {
         String sql = "SELECT * FROM student WHERE id = ?";
         Student student = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -62,7 +62,7 @@ public class StudentDAOImpl implements StudentDAO {
         return student;
     }
 
-    public List<Student> findAll() throws DAOException {
+    public List<Student> findAll() {
         String sql = "SELECT * FROM student";
         List<Student> studentList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -80,7 +80,7 @@ public class StudentDAOImpl implements StudentDAO {
         return studentList;
     }
 
-    public Student delete(Integer id) throws DAOException {
+    public Student delete(Integer id) {
         String sql = "DELETE FROM student WHERE id = ?";
         Student student = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -96,7 +96,7 @@ public class StudentDAOImpl implements StudentDAO {
         return student;
     }
 
-    public List<Student> findStudentsByGroup(Integer groupId) throws DAOException {
+    public List<Student> findStudentsByGroup(Integer groupId) {
         String sql = "SELECT * FROM student WHERE group_id = ?";
         List<Student> studentList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();

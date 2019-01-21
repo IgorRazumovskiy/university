@@ -22,7 +22,7 @@ public class FacultyDAOImpl implements FacultyDAO {
     private final ClassroomDAO classroomDAO = new ClassroomDAOImpl();
     private final ChairDAO chairDAO = new ChairDAOImpl();
 
-    public Faculty create(Faculty faculty) throws DAOException {
+    public Faculty create(Faculty faculty) {
         String sql = "INSERT INTO faculty (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -37,7 +37,7 @@ public class FacultyDAOImpl implements FacultyDAO {
         return faculty;
     }
 
-    public Faculty update(Faculty faculty) throws DAOException {
+    public Faculty update(Faculty faculty) {
         String sql = "UPDATE faculty SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -50,7 +50,7 @@ public class FacultyDAOImpl implements FacultyDAO {
         return faculty;
     }
 
-    public Faculty findOne(Integer id) throws DAOException {
+    public Faculty findOne(Integer id) {
         String sql = "SELECT * FROM faculty WHERE id = ?";
         Faculty faculty = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -71,7 +71,7 @@ public class FacultyDAOImpl implements FacultyDAO {
         return faculty;
     }
 
-    public List<Faculty> findAll() throws DAOException {
+    public List<Faculty> findAll() {
         String sql = "SELECT * FROM faculty";
         List<Faculty> facultyList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -92,7 +92,7 @@ public class FacultyDAOImpl implements FacultyDAO {
         return facultyList;
     }
 
-    public Faculty delete(Integer id) throws DAOException {
+    public Faculty delete(Integer id) {
         String sql = "DELETE FROM faculty WHERE id = ?";
         Faculty faculty = null;
         try (Connection connection = connectionFactory.getConnection();

@@ -31,7 +31,7 @@ public class CourseDAOImpl implements CourseDAO {
         return course;
     }
 
-    public Course update(Course course) throws DAOException {
+    public Course update(Course course) {
         String sql = "UPDATE course SET name = ? WHERE id = ?";
         try (Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -44,7 +44,7 @@ public class CourseDAOImpl implements CourseDAO {
         return course;
     }
 
-    public Course findOne(Integer id) throws DAOException {
+    public Course findOne(Integer id) {
         String sql = "SELECT * FROM course WHERE id = ?";
         Course course = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -62,7 +62,7 @@ public class CourseDAOImpl implements CourseDAO {
         return course;
     }
 
-    public List<Course> findAll() throws DAOException {
+    public List<Course> findAll() {
         String sql = "SELECT * FROM course";
         List<Course> courseList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -80,7 +80,7 @@ public class CourseDAOImpl implements CourseDAO {
         return courseList;
     }
 
-    public Course delete(Integer id) throws DAOException {
+    public Course delete(Integer id) {
         String sql = "DELETE FROM course WHERE id = ?";
         Course course = null;
         try (Connection connection = connectionFactory.getConnection();
@@ -96,7 +96,7 @@ public class CourseDAOImpl implements CourseDAO {
         return course;
     }
     
-    public List<Course> findCoursesByChair(Integer chairId) throws DAOException { 
+    public List<Course> findCoursesByChair(Integer chairId) { 
         String sql = "SELECT * FROM course WHERE chair_id = ?";
         List<Course> courseList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
@@ -115,7 +115,7 @@ public class CourseDAOImpl implements CourseDAO {
         return courseList;
     }
 
-    public List<Course> findCoursesByTeacher(Integer teacherId) throws DAOException { 
+    public List<Course> findCoursesByTeacher(Integer teacherId) { 
         String sql = "SELECT id, name FROM course c INNER JOIN course_teacher ct ON c.id = ct.course_id WHERE teacher_id = ?";
         List<Course> courseList = new ArrayList<>();
         try (Connection connection = connectionFactory.getConnection();
