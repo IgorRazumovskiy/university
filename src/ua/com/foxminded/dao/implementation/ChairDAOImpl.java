@@ -36,7 +36,7 @@ public class ChairDAOImpl implements ChairDAO {
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
             chair.setId(rs.getInt("id"));
-            log.info("Chair " + chair + " created!");
+            log.trace("Chair " + chair + " created!");
         } catch (SQLException e) {
             log.error("Cannot create chair", e);
             throw new DAOException("Cannot create chair", e);
@@ -54,7 +54,7 @@ public class ChairDAOImpl implements ChairDAO {
             statement.setInt(2, chair.getId());
             log.trace("Execute update statement");
             statement.executeUpdate();
-            log.info("Chair " + chair + " updated!");
+            log.trace("Chair " + chair + " updated!");
         } catch (SQLException e) {
             log.error("Cannot update chair", e);
             throw new DAOException("Cannot update chair", e);
@@ -79,7 +79,7 @@ public class ChairDAOImpl implements ChairDAO {
             }
             chair.setTeachers(teacherDAO.findTeachersByChair(id));
             chair.setCourses(courseDAO.findCoursesByChair(id));
-            log.info("Chair with id = " + id + " finded!");
+            log.trace("Chair with id = " + id + " finded!");
         } catch (SQLException e) {
             log.error("Cannot find chair", e);
             throw new DAOException("Cannot find chair", e);
@@ -104,7 +104,7 @@ public class ChairDAOImpl implements ChairDAO {
                 chair.setCourses(courseDAO.findCoursesByChair(rs.getInt("id")));
                 chairList.add(chair);
             }
-            log.info("All chairs finded!");
+            log.trace(chairList.size() + " chairs finded!");
         } catch (SQLException e) {
             log.error("Cannot find all chairs", e);
             throw new DAOException("Cannot find all chairs", e);
@@ -124,7 +124,7 @@ public class ChairDAOImpl implements ChairDAO {
             if (statement.executeUpdate() != 0) {
                 chair = new Chair();
                 chair.setId(id);
-                log.info("Chair with id = " + id + " deleted!");
+                log.trace("Chair with id = " + id + " deleted!");
             } else {
                 log.debug("Cannot find chair to delete!");
             }
@@ -150,7 +150,7 @@ public class ChairDAOImpl implements ChairDAO {
                 chair.setId(rs.getInt("id"));
                 chair.setName(rs.getString("name"));
                 chairList.add(chair);
-                log.info("All chairs with facultyId = " + facultyId + " finded!");
+                log.trace(chairList.size() + " chairs with facultyId = " + facultyId + " finded!");
             }
         } catch (SQLException e) {
             log.error("Cannot find chair", e);
