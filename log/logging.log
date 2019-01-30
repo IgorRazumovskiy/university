@@ -1,0 +1,2 @@
+2019-01-29 22:53:50 DEBUG ChairDAOImpl:82 - Chair with id = 2 found!
+2019-01-29 22:53:50 TRACE ChairDAOImpl:87 - Finish find Chair with id = 2
