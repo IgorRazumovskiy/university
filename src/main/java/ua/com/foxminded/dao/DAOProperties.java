@@ -16,7 +16,7 @@ public class DAOProperties {
 
     public synchronized static DAOProperties getInstance() {
         if (instance == null) {
-            try (FileInputStream fis = new FileInputStream("src/main/resources/dao.properties")) {
+            try (FileInputStream fis = new FileInputStream("dao.properties")) {
                 Properties prop = new Properties();
                 prop.load(fis);
                 instance = new DAOProperties();
