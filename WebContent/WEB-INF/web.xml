@@ -4,14 +4,26 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>Domain layer</display-name>
+	
+	<welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 	<servlet>
-		<servlet-name>FirstJSP</servlet-name>
-		<jsp-file>/First.jsp</jsp-file>
+		<servlet-name>groups</servlet-name>
+		<jsp-file>/groups.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>FirstJSP</servlet-name>
-		<url-pattern>/hello-one</url-pattern>
+		<servlet-name>groups</servlet-name>
+		<url-pattern>/groups</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>students</servlet-name>
+		<jsp-file>/students.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>students</servlet-name>
+		<url-pattern>/students</url-pattern>
 	</servlet-mapping>
 
 </web-app>

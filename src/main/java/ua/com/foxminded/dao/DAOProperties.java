@@ -1,7 +1,7 @@
 package ua.com.foxminded.dao;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class DAOProperties {
@@ -16,9 +16,10 @@ public class DAOProperties {
 
     public synchronized static DAOProperties getInstance() {
         if (instance == null) {
-            try (FileInputStream fis = new FileInputStream("dao.properties")) {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            try (InputStream stream = loader.getResourceAsStream("dao.properties")) {
                 Properties prop = new Properties();
-                prop.load(fis);
+                prop.load(stream);
                 instance = new DAOProperties();
                 instance.url = prop.getProperty("url");
                 instance.user = prop.getProperty("user");
