@@ -9,7 +9,10 @@
 <body>
 	<h2>University</h2>
 	<hr>
-	<a href="students"><h4>Students</h4></a>
-	<a href="groups"><h4>Groups</h4></a>
+	<h4>
+	<a href="students">Students</a>
+	<br></br>
+    <a href="groups">Groups</a>
+	</h4>
 </body>
 </html>

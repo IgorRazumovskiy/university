@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0">
-	<display-name>Domain layer</display-name>
-	
-	<welcome-file-list>
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+
+    <display-name>Domain layer</display-name>
+    <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
-	<servlet>
-		<servlet-name>groups</servlet-name>
-		<jsp-file>/groups.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>groups</servlet-name>
-		<url-pattern>/groups</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>students</servlet-name>
-		<jsp-file>/students.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>students</servlet-name>
-		<url-pattern>/students</url-pattern>
-	</servlet-mapping>
+    <servlet>
+        <servlet-name>GroupControllerServlet</servlet-name>
+        <servlet-class>GroupControllerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentControllerServlet</servlet-name>
+        <servlet-class>StudentControllerServlet</servlet-class>
+    </servlet>
 
 </web-app>
