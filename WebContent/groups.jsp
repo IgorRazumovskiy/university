@@ -17,7 +17,7 @@
         <c:forEach var="tempGroup" items="${groupList}">
             <tr>
                 <td>${tempGroup.id}</td>
-                <td><a href="view-group?id=${tempGroup.id}">${tempGroup.name}</a></td>
+                <td><a href="group?id=${tempGroup.id}">${tempGroup.name}</a></td>
             </tr>
         </c:forEach>
     </table>

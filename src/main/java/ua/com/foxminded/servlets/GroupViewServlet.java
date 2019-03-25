@@ -1,7 +1,6 @@
 package ua.com.foxminded.servlets;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import ua.com.foxminded.dao.implementation.GroupDAOImpl;
 import ua.com.foxminded.domain.Group;
 
-@WebServlet("/view-group")
+@WebServlet("/group")
 public class GroupViewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private GroupDAOImpl groupDAO;
+
+    public void init() throws ServletException {
+        super.init();
+        groupDAO = new GroupDAOImpl();
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -21,12 +26,10 @@ public class GroupViewServlet extends HttpServlet {
         Group group = null;
         if (request.getParameter("id") != null) {
             id = Integer.parseInt(request.getParameter("id"));
-            GroupDAOImpl groupDAO = new GroupDAOImpl();
             group = groupDAO.findOne(id);
         }
         request.setAttribute("group", group);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/view-group.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/group.jsp").forward(request, response);
     }
 
 }

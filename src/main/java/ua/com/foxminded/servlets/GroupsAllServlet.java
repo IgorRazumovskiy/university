@@ -3,7 +3,6 @@ package ua.com.foxminded.servlets;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,14 +15,18 @@ import ua.com.foxminded.domain.Group;
 @WebServlet("/groups")
 public class GroupsAllServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private GroupDAOImpl groupDAO;
+
+    public void init() throws ServletException {
+        super.init();
+        groupDAO = new GroupDAOImpl();
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        GroupDAOImpl groupDAO = new GroupDAOImpl();
         List<Group> groupList = groupDAO.findAll();
         request.setAttribute("groupList", groupList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/groups.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/groups.jsp").forward(request, response);
     }
 
 }
