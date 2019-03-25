@@ -5,21 +5,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>groups</title>
+<title>view-group</title>
 </head>
 <body>
-    <h2>Groups</h2>
+    <h2>Group ${group.name}</h2>
     <table border="1">
         <tr>
             <th>id</th>
-            <th>group</th>
+            <th>student name</th>
         </tr>
-        <c:forEach var="tempGroup" items="${groupList}">
-            <tr>
-                <td>${tempGroup.id}</td>
-                <td><a href="view-group?id=${tempGroup.id}">${tempGroup.name}</a></td>
-            </tr>
-        </c:forEach>
+        <c:if test="${not empty group}">
+            <c:forEach var="tempStudent" items="${group.students}">
+                <tr>
+                    <td>${tempStudent.id}</td>
+                    <td>${tempStudent.name}</td>
+                </tr>
+            </c:forEach>
+        </c:if>
     </table>
 </body>
 </html>

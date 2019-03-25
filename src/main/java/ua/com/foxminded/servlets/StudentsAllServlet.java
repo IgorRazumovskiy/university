@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.com.foxminded.dao.implementation.GroupDAOImpl;
-import ua.com.foxminded.domain.Group;
+import ua.com.foxminded.dao.implementation.StudentDAOImpl;
+import ua.com.foxminded.domain.Student;
 
-@WebServlet("/groups")
-public class GroupControllerServlet extends HttpServlet {
+@WebServlet("/students")
+public class StudentsAllServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        GroupDAOImpl groupDAO = new GroupDAOImpl();
-        List<Group> groupList = groupDAO.findAll();
-        request.setAttribute("groupList", groupList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/groups.jsp");
+        StudentDAOImpl studentDAO = new StudentDAOImpl();
+        List<Student> studentList = studentDAO.findAll();
+        request.setAttribute("studentList", studentList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/students.jsp");
         dispatcher.forward(request, response);
     }
 

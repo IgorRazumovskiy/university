@@ -3,18 +3,20 @@
     xmlns="http://java.sun.com/xml/ns/javaee"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     version="3.0">
-
     <display-name>Domain layer</display-name>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
-        <servlet-name>GroupControllerServlet</servlet-name>
-        <servlet-class>GroupControllerServlet</servlet-class>
+        <servlet-name>GroupsAllServlet</servlet-name>
+        <servlet-class>GroupsAllServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StudentControllerServlet</servlet-name>
-        <servlet-class>StudentControllerServlet</servlet-class>
+        <servlet-name>StudentsAllServlet</servlet-name>
+        <servlet-class>StudentsAllServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>GroupViewServlet</servlet-name>
+        <servlet-class>GroupViewServlet</servlet-class>
+    </servlet>
 </web-app>
