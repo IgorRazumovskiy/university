@@ -5,22 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>group</title>
+<title>student</title>
 </head>
 <body>
-    <h2>Group ${group.name}</h2>
+    <h2>Student ${student.name}</h2>
     <table border="1">
         <tr>
             <th>id</th>
-            <th>student name</th>
+            <th>name</th>
         </tr>
-        <c:if test="${not empty group}">
-            <c:forEach var="tempStudent" items="${group.students}">
-                <tr>
-                    <td>${tempStudent.id}</td>
-                    <td><a href="student?id=${tempStudent.id}">${tempStudent.name}</a></td>
-                </tr>
-            </c:forEach>
+        <c:if test="${not empty student}">
+            <tr>
+                <td>${student.id}</td>
+                <td>${student.name}</td>
+            </tr>
         </c:if>
     </table>
 </body>

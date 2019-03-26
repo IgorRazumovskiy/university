@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ua.com.foxminded.dao.GroupDAO;
 import ua.com.foxminded.dao.implementation.GroupDAOImpl;
 import ua.com.foxminded.domain.Group;
 
 @WebServlet("/groups")
 public class GroupsAllServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private GroupDAOImpl groupDAO;
+    private GroupDAO groupDAO;
 
     public void init() throws ServletException {
         super.init();
