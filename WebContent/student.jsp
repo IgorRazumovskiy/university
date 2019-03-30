@@ -21,5 +21,8 @@
             </tr>
         </c:if>
     </table>
+     <p>
+        <a href="/university/students">Back to Students</a>
+    </p>
 </body>
 </html>

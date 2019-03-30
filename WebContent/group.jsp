@@ -16,12 +16,19 @@
         </tr>
         <c:if test="${not empty group}">
             <c:forEach var="tempStudent" items="${group.students}">
+                <c:url var="tempLink" value="/students">
+                    <c:param name="command" value="FIND" />
+                    <c:param name="id" value="${tempStudent.id}" />
+                </c:url>
                 <tr>
                     <td>${tempStudent.id}</td>
-                    <td><a href="student?id=${tempStudent.id}">${tempStudent.name}</a></td>
+                    <td><a href="${tempLink}">${tempStudent.name}</a></td>
                 </tr>
             </c:forEach>
         </c:if>
     </table>
+    <p>
+        <a href="/university/groups">Back to Groups</a>
+    </p>
 </body>
 </html>
