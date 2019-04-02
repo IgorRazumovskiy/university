@@ -4,19 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>update-student</title>
+<title>add-student</title>
 </head>
 <body>
-    <h2>Update Student</h2>
-    <form action="/university/students" method="GET">
-        <input type="hidden" name="command" value="UPDATE" />
-        <input type="hidden" name="id" value="${student.id}" />
+    <h2>Add Student</h2>
+    <form action="/university/add-student" method="POST">
         <table>
             <tbody>
                 <tr>
                     <td><label>Name:</label></td>
-                    <td><input type="text" name="name"
-                        value="${student.name}" /></td>
+                    <td><input type="text" name="name" /></td>
                 </tr>
                 <tr>
                     <td><label></label></td>

@@ -11,7 +11,7 @@
 <body>
     <h2>Students</h2>
     <input type="button" value="Add Student"
-        onclick="window.location.href='add-student-form.jsp'; return false;" />
+        onclick="window.location.href='add-student.jsp'; return false;" />
     <br></br>
     <table border="1">
         <tr>
@@ -20,26 +20,14 @@
             <th>action</th>
         </tr>
         <c:forEach var="tempStudent" items="${studentList}">
-            <c:url var="tempUpdate" value="/students">
-                <c:param name="command" value="READ" />
-                <c:param name="id" value="${tempStudent.id}" />
-            </c:url>
-            <c:url var="tempDelete" value="/students">
-                <c:param name="command" value="DELETE" />
-                <c:param name="id" value="${tempStudent.id}" />
-            </c:url>
             <tr>
                 <td>${tempStudent.id}</td>
-                <c:url var="tempLink" value="/students">
-                    <c:param name="command" value="FIND" />
-                    <c:param name="id" value="${tempStudent.id}" />
-                </c:url>
-                <td><a href="${tempLink}">${tempStudent.name}</a></td>
-                <td><a href="${tempUpdate}">Update</a> | 
-                    <a href="${tempDelete}"
+                <td><a href="student?id=${tempStudent.id}">${tempStudent.name}</a></td>
+                <td><a href="update-student?id=${tempStudent.id}">Update</a>
+                     | 
+                    <a href="delete-student?id=${tempStudent.id}"
                     onclick="if (!(confirm('Delete this student?'))) return false">
-                        Delete</a>
-                </td>
+                        Delete</a></td>
             </tr>
         </c:forEach>
     </table>
