@@ -4,16 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>add-student</title>
+<title>student-update</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
-    <h2>Add Student</h2>
-    <form action="/university/add-student" method="POST">
+    <h2>Update Student</h2>
+    <form action="student-update" method="POST">
+        <input type="hidden" name="id" value="${student.id}" />
         <table>
             <tbody>
                 <tr>
                     <td><label>Name:</label></td>
-                    <td><input type="text" name="name" /></td>
+                    <td><input type="text" name="name"
+                        value="${student.name}" /></td>
                 </tr>
                 <tr>
                     <td><label></label></td>
@@ -24,7 +27,7 @@
         </table>
     </form>
     <p>
-        <a href="/university/students">Back to Students</a>
+        <a href="students">Back to Students</a>
     </p>
 </body>
 </html>

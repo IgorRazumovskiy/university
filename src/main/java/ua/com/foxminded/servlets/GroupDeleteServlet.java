@@ -1,33 +1,33 @@
 package ua.com.foxminded.servlets;
 
 import java.io.IOException;
-
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.com.foxminded.dao.StudentDAO;
-import ua.com.foxminded.dao.implementation.StudentDAOImpl;
-import ua.com.foxminded.domain.Student;
+import ua.com.foxminded.dao.GroupDAO;
+import ua.com.foxminded.dao.implementation.GroupDAOImpl;
+import ua.com.foxminded.domain.Group;
 
 
-@WebServlet("/student-delete")
-public class StudentDeleteServlet extends HttpServlet {
+@WebServlet("/group-delete")
+public class GroupDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private StudentDAO studentDAO;
+    private GroupDAO groupDAO;
 
-    public void init() throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         super.init();
-        studentDAO = new StudentDAOImpl();
+        groupDAO = new GroupDAOImpl();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
-        Student student = studentDAO.delete(id);
-        response.sendRedirect("students");
+        Group group = groupDAO.delete(id);
+        response.sendRedirect("groups");
     }
 
 }

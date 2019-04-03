@@ -8,39 +8,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.com.foxminded.dao.StudentDAO;
-import ua.com.foxminded.dao.implementation.StudentDAOImpl;
-import ua.com.foxminded.domain.Student;
+import ua.com.foxminded.dao.GroupDAO;
+import ua.com.foxminded.dao.implementation.GroupDAOImpl;
+import ua.com.foxminded.domain.Group;
 
-@WebServlet("/student-update")
-public class StudentUpdateServlet extends HttpServlet {
+@WebServlet("/group-update")
+public class GroupUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private StudentDAO studentDAO;
+    private GroupDAO groupDAO;
 
     public void init() throws ServletException {
         super.init();
-        studentDAO = new StudentDAOImpl();
+        groupDAO = new GroupDAOImpl();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Integer id = null;
-        Student student = null;
+        Group group = null;
         if (request.getParameter("id") != null) {
             id = Integer.parseInt(request.getParameter("id"));
-            student = studentDAO.findOne(id);
+            group = groupDAO.findOne(id);
         }
-        request.setAttribute("student", student);
-        request.getRequestDispatcher("/student-update.jsp").forward(request, response);
+        request.setAttribute("group", group);
+        request.getRequestDispatcher("/group-update.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Student student = new Student(request.getParameter("name"));
+        Group group = new Group();
+        group.setName(request.getParameter("name"));
         Integer id = Integer.parseInt(request.getParameter("id"));
-        student.setId(id);
-        studentDAO.update(student);
-        response.sendRedirect("students");
+        group.setId(id);
+        groupDAO.update(group);
+        response.sendRedirect("groups");
     }
 
 }

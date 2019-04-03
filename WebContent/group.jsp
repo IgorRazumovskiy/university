@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>group</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
     <h2>Group ${group.name}</h2>
@@ -15,20 +16,16 @@
             <th>student name</th>
         </tr>
         <c:if test="${not empty group}">
-            <c:forEach var="tempStudent" items="${group.students}">
-                <c:url var="tempLink" value="/students">
-                    <c:param name="command" value="FIND" />
-                    <c:param name="id" value="${tempStudent.id}" />
-                </c:url>
+            <c:forEach var="tempStudent" items="${group.students}">      
                 <tr>
                     <td>${tempStudent.id}</td>
-                    <td><a href="${tempLink}">${tempStudent.name}</a></td>
+                    <td><a href="student?id=${tempStudent.id}">${tempStudent.name}</a></td>
                 </tr>
             </c:forEach>
         </c:if>
     </table>
     <p>
-        <a href="/university/groups">Back to Groups</a>
+        <a href="groups">Back to Groups</a>
     </p>
 </body>
 </html>

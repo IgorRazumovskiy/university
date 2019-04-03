@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>student</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
     <h2>Student ${student.name}</h2>
@@ -22,7 +23,7 @@
         </c:if>
     </table>
      <p>
-        <a href="/university/students">Back to Students</a>
+        <a href="students">Back to Students</a>
     </p>
 </body>
 </html>

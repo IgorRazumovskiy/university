@@ -7,11 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>students</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
     <h2>Students</h2>
     <input type="button" value="Add Student"
-        onclick="window.location.href='add-student.jsp'; return false;" />
+        onclick="window.location.href='students-add.jsp'; return false;" />
     <br></br>
     <table border="1">
         <tr>
@@ -23,11 +24,14 @@
             <tr>
                 <td>${tempStudent.id}</td>
                 <td><a href="student?id=${tempStudent.id}">${tempStudent.name}</a></td>
-                <td><a href="update-student?id=${tempStudent.id}">Update</a>
-                     | 
-                    <a href="delete-student?id=${tempStudent.id}"
-                    onclick="if (!(confirm('Delete this student?'))) return false">
-                        Delete</a></td>
+                <td><a href="student-update?id=${tempStudent.id}">
+                    <input type="button" value="Update" /></a>
+                    <form action="student-delete" method="POST">
+                        <input type="hidden" name="id" value="${tempStudent.id}" />
+                        <input type="submit" value="Delete"
+                            onclick="if (!(confirm('Delete this student?'))) return false" />
+                    </form>
+                </td>
             </tr>
         </c:forEach>
     </table>

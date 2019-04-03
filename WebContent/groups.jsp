@@ -6,11 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>groups</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
     <h2>Groups</h2>
     <input type="button" value="Add Group"
-        onclick="window.location.href='add-group-form.jsp'; return false;" />
+        onclick="window.location.href='groups-add.jsp'; return false;" />
     <br></br>
     <table border="1">
         <tr>
@@ -19,25 +20,16 @@
             <th>action</th>
         </tr>
         <c:forEach var="tempGroup" items="${groupList}">
-            <c:url var="tempUpdate" value="/groups">
-                <c:param name="command" value="READ" />
-                <c:param name="id" value="${tempGroup.id}" />
-            </c:url>
-            <c:url var="tempDelete" value="/groups">
-                <c:param name="command" value="DELETE" />
-                <c:param name="id" value="${tempGroup.id}" />
-            </c:url>
             <tr>
                 <td>${tempGroup.id}</td>
-                <c:url var="tempLink" value="/groups">
-                    <c:param name="command" value="FIND" />
-                    <c:param name="id" value="${tempGroup.id}" />
-                </c:url>
-                <td><a href="${tempLink}">${tempGroup.name}</a></td>
-                <td><a href="${tempUpdate}">Update</a> | 
-                    <a href="${tempDelete}"
-                    onclick="if (!(confirm('Delete this group?'))) return false">
-                        Delete</a>
+                <td><a href="group?id=${tempGroup.id}">${tempGroup.name}</a></td>
+                <td><a href="group-update?id=${tempGroup.id}">
+                    <input type="button" value="Update" /></a>
+                    <form action="group-delete" method="POST">
+                        <input type="hidden" name="id" value="${tempGroup.id}" />
+                        <input type="submit" value="Delete"
+                            onclick="if (!(confirm('Delete this group?'))) return false" />
+                    </form>
                 </td>
             </tr>
         </c:forEach>

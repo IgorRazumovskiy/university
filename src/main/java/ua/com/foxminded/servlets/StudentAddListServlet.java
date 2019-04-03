@@ -14,7 +14,7 @@ import ua.com.foxminded.dao.implementation.StudentDAOImpl;
 import ua.com.foxminded.domain.Student;
 
 @WebServlet("/students")
-public class StudentListServlet extends HttpServlet {
+public class StudentAddListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StudentDAO studentDAO;
 
@@ -23,11 +23,18 @@ public class StudentListServlet extends HttpServlet {
         studentDAO = new StudentDAOImpl();
     }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Student student = new Student(request.getParameter("name"));
+        studentDAO.create(student);
+        response.sendRedirect("students");
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Student> studentList = studentDAO.findAll();
         request.setAttribute("studentList", studentList);
         request.getRequestDispatcher("/students.jsp").forward(request, response);
     }
-
+    
 }

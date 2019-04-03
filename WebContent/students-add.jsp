@@ -4,29 +4,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>update-group</title>
+<title>student-add</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
-    <h2>Update Group</h2>
-    <form action="/university/groups" method="GET">
-        <input type="hidden" name="command" value="UPDATE" />
-        <input type="hidden" name="id" value="${group.id}" />
+    <h2>Add Student</h2>
+    <form action="students" method="POST">
         <table>
             <tbody>
                 <tr>
                     <td><label>Name:</label></td>
-                    <td><input type="text" name="name"
-                        value="${group.name}" /></td>
+                    <td><input type="text" name="name" /></td>
                 </tr>
                 <tr>
                     <td><label></label></td>
-                    <td><input type="submit" name="Save" /></td>
+                    <td><input type="submit" name="Save"
+                        class="save" /></td>
                 </tr>
             </tbody>
         </table>
     </form>
     <p>
-        <a href="/university/groups">Back to Groups</a>
+        <a href="students">Back to Students</a>
     </p>
 </body>
 </html>

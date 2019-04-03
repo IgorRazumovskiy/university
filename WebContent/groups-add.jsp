@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>add-group</title>
+<title>group-add</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
     <h2>Add Group</h2>
-    <form action="/university/groups" method="GET">
-        <input type="hidden" name="command" value="ADD" />
+    <form action="groups" method="POST">
         <table>
             <tbody>
                 <tr>
@@ -24,7 +24,7 @@
         </table>
     </form>
     <p>
-        <a href="/university/groups">Back to Groups</a>
+        <a href="groups">Back to Groups</a>
     </p>
 </body>
 </html>
