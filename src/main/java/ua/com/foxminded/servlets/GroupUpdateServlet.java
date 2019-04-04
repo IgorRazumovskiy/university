@@ -12,14 +12,16 @@ import ua.com.foxminded.dao.GroupDAO;
 import ua.com.foxminded.dao.implementation.GroupDAOImpl;
 import ua.com.foxminded.domain.Group;
 
-@WebServlet("/group-update")
+@WebServlet("/group/update")
 public class GroupUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private GroupDAO groupDAO;
+    private String path;
 
     public void init() throws ServletException {
         super.init();
         groupDAO = new GroupDAOImpl();
+        path = getServletContext().getContextPath();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +43,7 @@ public class GroupUpdateServlet extends HttpServlet {
         Integer id = Integer.parseInt(request.getParameter("id"));
         group.setId(id);
         groupDAO.update(group);
-        response.sendRedirect("groups");
+        response.sendRedirect(path + "/groups");
     }
 
 }

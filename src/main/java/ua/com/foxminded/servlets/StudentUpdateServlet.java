@@ -12,14 +12,16 @@ import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.implementation.StudentDAOImpl;
 import ua.com.foxminded.domain.Student;
 
-@WebServlet("/student-update")
+@WebServlet("/student/update")
 public class StudentUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StudentDAO studentDAO;
+    private String path;
 
     public void init() throws ServletException {
         super.init();
         studentDAO = new StudentDAOImpl();
+        path = getServletContext().getContextPath();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +42,7 @@ public class StudentUpdateServlet extends HttpServlet {
         Integer id = Integer.parseInt(request.getParameter("id"));
         student.setId(id);
         studentDAO.update(student);
-        response.sendRedirect("students");
+        response.sendRedirect(path + "/students");
     }
 
 }

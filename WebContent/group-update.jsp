@@ -9,7 +9,7 @@
 </head>
 <body>
     <h2>Update Group</h2>
-    <form action="group-update" method="POST">
+    <form action="group/update" method="POST">
         <input type="hidden" name="id" value="${group.id}" />
         <table>
             <tbody>
@@ -26,7 +26,7 @@
         </table>
     </form>
     <p>
-        <a href="groups">Back to Groups</a>
+        <a href="groups/">Back to Groups</a>
     </p>
 </body>
 </html>

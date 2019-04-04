@@ -13,21 +13,23 @@ import ua.com.foxminded.dao.implementation.StudentDAOImpl;
 import ua.com.foxminded.domain.Student;
 
 
-@WebServlet("/student-delete")
+@WebServlet("/student/delete")
 public class StudentDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StudentDAO studentDAO;
+    private String path;
 
     public void init() throws ServletException {
         super.init();
         studentDAO = new StudentDAOImpl();
+        path = getServletContext().getContextPath();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         Student student = studentDAO.delete(id);
-        response.sendRedirect("students");
+        response.sendRedirect(path + "/students");
     }
 
 }

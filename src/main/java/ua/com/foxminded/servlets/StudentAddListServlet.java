@@ -17,17 +17,12 @@ import ua.com.foxminded.domain.Student;
 public class StudentAddListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StudentDAO studentDAO;
+    private String path;
 
     public void init() throws ServletException {
         super.init();
         studentDAO = new StudentDAOImpl();
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Student student = new Student(request.getParameter("name"));
-        studentDAO.create(student);
-        response.sendRedirect("students");
+        path = getServletContext().getContextPath();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,5 +31,12 @@ public class StudentAddListServlet extends HttpServlet {
         request.setAttribute("studentList", studentList);
         request.getRequestDispatcher("/students.jsp").forward(request, response);
     }
-    
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Student student = new Student(request.getParameter("name"));
+        studentDAO.create(student);
+        response.sendRedirect(path + "/students");
+    }
+
 }

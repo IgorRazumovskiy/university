@@ -24,9 +24,8 @@
             <tr>
                 <td>${tempStudent.id}</td>
                 <td><a href="student?id=${tempStudent.id}">${tempStudent.name}</a></td>
-                <td><a href="student-update?id=${tempStudent.id}">
-                    <input type="button" value="Update" /></a>
-                    <form action="student-delete" method="POST">
+                <td><a href="student/update?id=${tempStudent.id}"><button>Update</button></a>
+                    <form action="student/delete" method="POST">
                         <input type="hidden" name="id" value="${tempStudent.id}" />
                         <input type="submit" value="Delete"
                             onclick="if (!(confirm('Delete this student?'))) return false" />

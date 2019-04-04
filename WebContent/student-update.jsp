@@ -9,7 +9,7 @@
 </head>
 <body>
     <h2>Update Student</h2>
-    <form action="student-update" method="POST">
+    <form action="student/update" method="POST">
         <input type="hidden" name="id" value="${student.id}" />
         <table>
             <tbody>
