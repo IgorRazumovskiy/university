@@ -1,6 +1,7 @@
 package ua.com.foxminded.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,7 @@ import ua.com.foxminded.dao.implementation.StudentDAOImpl;
 import ua.com.foxminded.domain.Student;
 
 @WebServlet("/student")
-public class StudentViewServlet extends HttpServlet {
+public class StudentReadServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StudentDAO studentDAO;
 

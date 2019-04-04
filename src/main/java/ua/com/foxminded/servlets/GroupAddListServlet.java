@@ -14,13 +14,15 @@ import ua.com.foxminded.dao.implementation.GroupDAOImpl;
 import ua.com.foxminded.domain.Group;
 
 @WebServlet("/groups")
-public class GroupsAllServlet extends HttpServlet {
+public class GroupAddListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private GroupDAO groupDAO;
+    private String path;
 
     public void init() throws ServletException {
         super.init();
         groupDAO = new GroupDAOImpl();
+        path = getServletContext().getContextPath();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,6 +30,14 @@ public class GroupsAllServlet extends HttpServlet {
         List<Group> groupList = groupDAO.findAll();
         request.setAttribute("groupList", groupList);
         request.getRequestDispatcher("/groups.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Group group = new Group();
+        group.setName(request.getParameter("name"));
+        groupDAO.create(group);
+        response.sendRedirect(path + "/groups");
     }
 
 }

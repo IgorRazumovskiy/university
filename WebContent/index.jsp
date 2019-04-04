@@ -5,14 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>university</title>
+<base href="${pageContext.request.contextPath}/">
 </head>
 <body>
     <h2>University</h2>
     <hr>
     <h4>
-        <a href="/university/students">Students</a>
+        <a href="students">Students</a>
         <br></br>
-        <a href="/university/groups">Groups</a>
+        <a href="groups">Groups</a>
     </h4>
 </body>
 </html>
