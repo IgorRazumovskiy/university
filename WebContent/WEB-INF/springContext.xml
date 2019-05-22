@@ -20,6 +20,6 @@
         <property name="lookupOnStartup" value="true" />
         <property name="proxyInterface" value="javax.sql.DataSource" />
     </bean>
-
+    
 </beans>
 

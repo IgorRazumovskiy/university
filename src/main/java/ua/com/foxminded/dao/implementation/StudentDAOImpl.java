@@ -10,17 +10,16 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.domain.Student;
 
-@Repository
 public class StudentDAOImpl implements StudentDAO {
-    @Autowired
-    private DataSource dataSource;
+    private final WebApplicationContext applicationContext = ContextLoader.getCurrentWebApplicationContext();
+    private final DataSource dataSource = (DataSource) applicationContext.getBean(javax.sql.DataSource.class, "dataSource");
     
     public Student create(Student student) {
         String sql = "INSERT INTO student (name) VALUES (?)";

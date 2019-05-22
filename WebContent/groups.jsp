@@ -26,9 +26,8 @@
                 <td><a href="group/update?id=${tempGroup.id}"><button>Update</button></a>
                     `
                     <form action="group/delete" method="POST">
-                        <input type="hidden" name="id"
-                            value="${tempGroup.id}" /> <input
-                            type="submit" value="Delete"
+                        <input type="hidden" name="id" value="${tempGroup.id}" />
+                        <input type="submit" value="Delete"
                             onclick="if (!(confirm('Delete this group?'))) return false" />
                     </form></td>
             </tr>
