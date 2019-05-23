@@ -11,7 +11,9 @@
     <h2>University</h2>
     <hr>
     <h4>
-        <a href="students">Students</a> <br></br> <a href="groups">Groups</a>
+        <a href="students">Students</a>
+        <br></br>
+        <a href="groups">Groups</a>
     </h4>
 </body>
 </html>
