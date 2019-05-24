@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.context.ContextLoader;
-
 import ua.com.foxminded.dao.ConnectionFactory;
 import ua.com.foxminded.dao.DAOException;
 import ua.com.foxminded.dao.GroupDAO;
@@ -17,8 +15,7 @@ import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAOImpl implements GroupDAO {
-    private final ConnectionFactory connectionFactory = ContextLoader.getCurrentWebApplicationContext()
-            .getBean(ua.com.foxminded.dao.ConnectionFactory.class, "connectionFactory");
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
     private final StudentDAO studentDAO = new StudentDAOImpl();
 
     public Group create(Group group) {
