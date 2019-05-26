@@ -5,6 +5,6 @@
         type="javax.sql.DataSource"
         driverClassName="org.postgresql.Driver"
         url="jdbc:postgresql://localhost:5432/university"
-        username="postgres" password="123456" 
-        maxActive="20" maxIdle="5" maxWait="-1" />
+        username="postgres" password="123456"
+        maxActive="20" maxIdle="5" maxWait="-1"/>
 </Context>

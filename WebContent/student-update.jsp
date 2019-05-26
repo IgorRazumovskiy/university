@@ -10,18 +10,18 @@
 <body>
     <h2>Update Student</h2>
     <form action="student/update" method="POST">
-        <input type="hidden" name="id" value="${student.id}" />
+        <input type="hidden" name="id" value="${student.id}"/>
         <table>
             <tbody>
                 <tr>
                     <td><label>Name:</label></td>
                     <td><input type="text" name="name"
-                        value="${student.name}" /></td>
+                        value="${student.name}"/></td>
                 </tr>
                 <tr>
                     <td><label></label></td>
                     <td><input type="submit" name="Save"
-                        class="save" /></td>
+                        class="save"/></td>
                 </tr>
             </tbody>
         </table>

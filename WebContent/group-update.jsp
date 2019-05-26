@@ -10,17 +10,17 @@
 <body>
     <h2>Update Group</h2>
     <form action="group/update" method="POST">
-        <input type="hidden" name="id" value="${group.id}" />
+        <input type="hidden" name="id" value="${group.id}"/>
         <table>
             <tbody>
                 <tr>
                     <td><label>Name:</label></td>
                     <td><input type="text" name="name"
-                        value="${group.name}" /></td>
+                        value="${group.name}"/></td>
                 </tr>
                 <tr>
                     <td><label></label></td>
-                    <td><input type="submit" name="Save" /></td>
+                    <td><input type="submit" name="Save"/></td>
                 </tr>
             </tbody>
         </table>
