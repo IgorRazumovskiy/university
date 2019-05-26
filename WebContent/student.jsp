@@ -22,7 +22,7 @@
             </tr>
         </c:if>
     </table>
-     <p>
+    <p>
         <a href="students">Back to Students</a>
     </p>
 </body>

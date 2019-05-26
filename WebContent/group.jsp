@@ -16,7 +16,7 @@
             <th>student name</th>
         </tr>
         <c:if test="${not empty group}">
-            <c:forEach var="tempStudent" items="${group.students}">      
+            <c:forEach var="tempStudent" items="${group.students}">
                 <tr>
                     <td>${tempStudent.id}</td>
                     <td><a href="student?id=${tempStudent.id}">${tempStudent.name}</a></td>
