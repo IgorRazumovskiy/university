@@ -14,12 +14,12 @@
             <tbody>
                 <tr>
                     <td><label>Name:</label></td>
-                    <td><input type="text" name="name" /></td>
+                    <td><input type="text" name="name"/></td>
                 </tr>
                 <tr>
                     <td><label></label></td>
                     <td><input type="submit" name="Save"
-                        class="save" /></td>
+                        class="save"/></td>
                 </tr>
             </tbody>
         </table>

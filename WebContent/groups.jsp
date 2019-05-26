@@ -11,7 +11,7 @@
 <body>
     <h2>Groups</h2>
     <input type="button" value="Add Group"
-        onclick="window.location.href='groups-add.jsp'; return false;" />
+        onclick="window.location.href='groups-add.jsp'; return false;"/>
     <br></br>
     <table border="1">
         <tr>
