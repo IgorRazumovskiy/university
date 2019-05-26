@@ -15,7 +15,7 @@ import ua.com.foxminded.domain.Student;
 
 public class StudentDAOImpl implements StudentDAO {
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
-        
+
     public Student create(Student student) {
         String sql = "INSERT INTO student (name) VALUES (?)";
         try (Connection connection = connectionFactory.getConnection();
