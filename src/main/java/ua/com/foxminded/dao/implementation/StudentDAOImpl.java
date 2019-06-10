@@ -1,117 +1,62 @@
 package ua.com.foxminded.dao.implementation;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import ua.com.foxminded.dao.ConnectionFactory;
-import ua.com.foxminded.dao.DAOException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import ua.com.foxminded.dao.HibernateUtil;
 import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.domain.Student;
 
 public class StudentDAOImpl implements StudentDAO {
-    private final ConnectionFactory connectionFactory = new ConnectionFactory();
-        
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+    @Transactional
     public Student create(Student student) {
-        String sql = "INSERT INTO student (name) VALUES (?)";
-        try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, student.getName());
-            statement.execute();
-            ResultSet rs = statement.getGeneratedKeys();
-            rs.next();
-            student.setId(rs.getInt("id"));
-        } catch (SQLException e) {
-            throw new DAOException("Cannot create student", e);
-        }
+        Session session = sessionFactory.getCurrentSession();
+        session.save(student);
         return student;
     }
 
+    @Transactional
     public Student update(Student student) {
-        String sql = "UPDATE student SET name = ? WHERE id = ?";
-        try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, student.getName());
-            statement.setInt(2, student.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DAOException("Cannot update student", e);
-        }
+        Session session = sessionFactory.getCurrentSession();
+        session.update(student);
         return student;
     }
 
+    @Transactional
     public Student findOne(Integer id) {
-        String sql = "SELECT * FROM student WHERE id = ?";
-        Student student = null;
-        try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                student = new Student();
-                student.setId(rs.getInt("id"));
-                student.setName(rs.getString("name"));
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Cannot find student", e);
-        }
+        Session session = sessionFactory.getCurrentSession();
+        Student student = session.get(Student.class, id);
         return student;
     }
 
+    @Transactional
     public List<Student> findAll() {
-        String sql = "SELECT * FROM student";
-        List<Student> studentList = new ArrayList<>();
-        try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Student student = new Student();
-                student.setId(rs.getInt("id"));
-                student.setName(rs.getString("name"));
-                studentList.add(student);
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Cannot find all students", e);
-        }
+        Session session = sessionFactory.getCurrentSession();
+        Query<Student> query = session.createQuery("from Student", Student.class);
+        List<Student> studentList = query.getResultList();
         return studentList;
     }
 
+    @Transactional
     public Student delete(Integer id) {
-        String sql = "DELETE FROM student WHERE id = ?";
-        Student student = null;
-        try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
-            if (statement.executeUpdate() != 0) {
-                student = new Student();
-                student.setId(id);
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Cannot delete student", e);
-        }
+        Session session = sessionFactory.getCurrentSession();
+        Student student = session.get(Student.class, id);
+        session.delete(student);
         return student;
     }
 
+    @Transactional
     public List<Student> findStudentsByGroup(Integer groupId) {
-        String sql = "SELECT * FROM student WHERE group_id = ?";
-        List<Student> studentList = new ArrayList<>();
-        try (Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, groupId);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Student student = new Student();
-                student.setId(rs.getInt("id"));
-                student.setName(rs.getString("name"));
-                studentList.add(student);
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Cannot find students in group", e);
-        }
+        Session session = sessionFactory.getCurrentSession();
+        Query<Student> query = session.createQuery("from Student where groupId=:studentGroupId", Student.class);
+        query.setParameter("studentGroupId", groupId);
+        List<Student> studentList = query.getResultList();
         return studentList;
     }
 
