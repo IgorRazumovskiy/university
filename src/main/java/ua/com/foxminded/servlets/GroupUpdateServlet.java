@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.com.foxminded.dao.GroupDAO;
-import ua.com.foxminded.dao.implementation.GroupDAOImpl;
+import ua.com.foxminded.dao.implementation.GroupDAOHibernate;
 import ua.com.foxminded.domain.Group;
 
 @WebServlet("/group/update")
@@ -20,7 +20,7 @@ public class GroupUpdateServlet extends HttpServlet {
 
     public void init() throws ServletException {
         super.init();
-        groupDAO = new GroupDAOImpl();
+        groupDAO = new GroupDAOHibernate();
         path = getServletContext().getContextPath();
     }
 

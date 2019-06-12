@@ -2,17 +2,14 @@ package ua.com.foxminded.dao;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
     static {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
-        sessionFactory = (SessionFactory) context
-                .getBean(org.springframework.orm.hibernate5.LocalSessionFactoryBean.class, "sessionFactory");
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static SessionFactory getSessionFactory() throws HibernateException {
