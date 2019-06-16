@@ -8,10 +8,12 @@ import org.hibernate.query.Query;
 
 import ua.com.foxminded.dao.GroupDAO;
 import ua.com.foxminded.dao.HibernateUtil;
+import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAOHibernate implements GroupDAO {
     private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private StudentDAO studentDAO = new StudentDAOHibernate();
 
     public Group create(Group group) {
         Session session = sessionFactory.getCurrentSession();
@@ -34,6 +36,7 @@ public class GroupDAOHibernate implements GroupDAO {
         session.beginTransaction();
         Group group = session.get(Group.class, id);
         session.getTransaction().commit();
+        group.setStudents(studentDAO.findStudentsByGroup(id));
         return group;
     }
 
@@ -58,7 +61,7 @@ public class GroupDAOHibernate implements GroupDAO {
     public List<Group> findGroupsByFaculty(Integer facultyId) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Query<Group> query = session.createQuery("from Group where facultyId=:groupfacultyId", Group.class);
+        Query<Group> query = session.createQuery("from Group where faculty_id=:groupfacultyId", Group.class);
         query.setParameter("groupfacultyId", facultyId);
         List<Group> groupList = query.getResultList();
         session.getTransaction().commit();

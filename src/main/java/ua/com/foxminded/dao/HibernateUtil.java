@@ -6,11 +6,8 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    private static SessionFactory sessionFactory;
-
-    static {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-    }
+    private static SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
+            .buildSessionFactory();
 
     public static SessionFactory getSessionFactory() throws HibernateException {
         return sessionFactory;
