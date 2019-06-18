@@ -57,7 +57,7 @@ public class StudentDAOHibernate implements StudentDAO {
     public List<Student> findStudentsByGroup(Integer groupId) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Query<Student> query = session.createQuery("from Student where group_id=:studentGroupId", Student.class);
+        Query<Student> query = session.createQuery("from Student where group_id = : studentGroupId", Student.class);
         query.setParameter("studentGroupId", groupId);
         List<Student> studentList = query.getResultList();
         session.getTransaction().commit();

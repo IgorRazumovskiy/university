@@ -61,7 +61,7 @@ public class GroupDAOHibernate implements GroupDAO {
     public List<Group> findGroupsByFaculty(Integer facultyId) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Query<Group> query = session.createQuery("from Group where faculty_id=:groupfacultyId", Group.class);
+        Query<Group> query = session.createQuery("from Group where faculty_id = : groupfacultyId", Group.class);
         query.setParameter("groupfacultyId", facultyId);
         List<Group> groupList = query.getResultList();
         session.getTransaction().commit();
