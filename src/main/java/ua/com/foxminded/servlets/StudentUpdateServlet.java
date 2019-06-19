@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.com.foxminded.dao.StudentDAO;
+import ua.com.foxminded.dao.implementation.StudentDAOHibernate;
 import ua.com.foxminded.dao.implementation.StudentDAOImpl;
 import ua.com.foxminded.domain.Student;
 
@@ -20,7 +21,7 @@ public class StudentUpdateServlet extends HttpServlet {
 
     public void init() throws ServletException {
         super.init();
-        studentDAO = new StudentDAOImpl();
+        studentDAO = new StudentDAOHibernate();
         path = getServletContext().getContextPath();
     }
 
